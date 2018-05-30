@@ -2,10 +2,9 @@ package General;
 
 public class Simulador {
 	
-	//aqui se definen algunos clientes y bancos para pruebas
+	//Aqui se definirán algunos clientes y bancos para pruebas
 	
 	public void simular() {
-		// TODO Auto-generated method stub
 		Integer teclado;		
 		try {
 			do {
@@ -22,6 +21,5 @@ public class Simulador {
 			System.err.println(":)");
 		}
 	}
-	
 	
 }
