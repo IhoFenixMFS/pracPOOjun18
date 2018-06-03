@@ -6,6 +6,11 @@ public class AgenteDeInversiones extends Persona{
 	 * Recibe peticiones del banco y las codifica adecuadamente para la bolsa.
 	 */
 	
+	public AgenteDeInversiones(String nombre, String dni) {
+		super(nombre, dni);
+		// TODO Auto-generated constructor stub
+	}
+
 	private void procesarSolicitudBroker(Integer opc) {
 		// TODO Auto-generated method stub
 		switch (opc) {

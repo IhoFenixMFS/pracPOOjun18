@@ -12,5 +12,4 @@ public class Utilidades {
 		return (int)(numAleatInt(dsd, hst));
 	}
 	
-	
 }

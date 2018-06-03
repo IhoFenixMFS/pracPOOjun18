@@ -1,6 +1,8 @@
 package Banco;
 
 public class PaqueteDeAcciones {
+	
+
 	/*
 	 * Incluye el nombre de la empresa, el número de títulos que posee el cliente
 	 * y el precio total del paquete. También, opcionalmente,
@@ -52,15 +54,23 @@ public class PaqueteDeAcciones {
 		return totalPaquete;
 	}
 
-	public void setTotalPaquete(integer numTitulos, double valorTitulo) {
+	public void setTotalPaquete(Integer numTitulos, double valorTitulo) {
 		this.totalPaquete = numTitulos * valorTitulo;
 	}
 
-	public void mostarDatos() {
-    	System.out.println("   Nombre de la empresa: " + getNombreEmpresa());
-    	System.out.println("   Numero de títulos: " + getNumTitulos());
-    	System.out.println("   Valor de cada título: " + getValorTitulo());
-    	System.out.println("   Total del paquete: " + getTotalPaquete());
+	public void mostrarDatos() {
+		System.out.println( "   Nombre de la empresa: " + this.getNombreEmpresa());
+		System.out.println("   Numero de títulos: " + this.getNumTitulos());
+		System.out.println("   Valor de cada título: " + this.getValorTitulo());
+		System.out.println("   Total del paquete: " + this.getTotalPaquete() );
     }
+	
+	public PaqueteDeAcciones(String nombreEmpresa, Integer numTitulos, double valorTitulo) {
+		super();
+		this.nombreEmpresa = nombreEmpresa;
+		this.numTitulos = numTitulos;
+		this.valorTitulo = valorTitulo;
+		this.totalPaquete = numTitulos * valorTitulo;
+	}
 	
 }

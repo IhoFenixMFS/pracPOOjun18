@@ -34,4 +34,12 @@ public class Empresa {
 		this.incremento = incremento;
 	}
 	
+	public Empresa(String nombre, double valorAcciones, double valorPrevio, double incremento) {
+		super();
+		this.nombre = nombre;
+		this.valorAcciones = valorAcciones;
+		this.valorPrevio = valorPrevio;
+		this.incremento = incremento;
+	}
+
 }
