@@ -2,13 +2,13 @@ package Banco;
 
 public class Cliente extends Persona{
 	
-	Double saldo;
+	double saldo;
 	PaqueteDeAcciones carteraDeAcciones[]=new PaqueteDeAcciones[10];
 	
-	public Double getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
-	public void setSaldo(Double saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
 	public PaqueteDeAcciones[] getCarteraDeAcciones() {
