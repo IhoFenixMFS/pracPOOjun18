@@ -10,13 +10,13 @@ public class AgenteDeInversiones extends Persona{
 		// TODO Auto-generated method stub
 		switch (opc) {
 		case 0:
-			System.out.println("comprar acción");
+			System.out.println("Comprar acción");
 			break;
 		case 1:
-			System.out.println("vender acción");
+			System.out.println("Vender acción");
 			break;
 		case 2:
-			System.out.println("actualizar valores");
+			System.out.println("Actualizar valores");
 			break;
 
 		default:

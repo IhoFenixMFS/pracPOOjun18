@@ -4,20 +4,19 @@ public class InterfazDeUsuario {
 
 	public static void menu() {
 		System.out.println();
-		System.out.println();
-		System.out.println("0.- Salir");
+		System.out.println(" 0.- Salir");
 		System.out.println("------------------ ESTADO --------------");
-		System.out.println("1.- Imprimir estado de los clientes");
-		System.out.println("2.- Imprimir estado de la bolsa");
+		System.out.println(" 1.- Imprimir estado de los clientes");
+		System.out.println(" 2.- Imprimir estado de la bolsa");
 		System.out.println("------------------- BANCO --------------");
-		System.out.println("3.- Añadir cliente");
-		System.out.println("4.- Eliminar cliente");
-		System.out.println("5.- Realizar copia de seguridad");
-		System.out.println("6.- Restaurar copia de seguridad");
-		System.out.println("7.- Mejorar cliente a premium");
-		System.out.println("8.- Solicita recomendación de inversión");
+		System.out.println(" 3.- Añadir cliente");
+		System.out.println(" 4.- Eliminar cliente");
+		System.out.println(" 5.- Realizar copia de seguridad");
+		System.out.println(" 6.- Restaurar copia de seguridad");
+		System.out.println(" 7.- Mejorar cliente a premium");
+		System.out.println(" 8.- Solicita recomendación de inversión");
 		System.out.println("------------------- BOLSA --------------");
-		System.out.println("9.- Añadir empresa a la bolsa");
+		System.out.println(" 9.- Añadir empresa a la bolsa");
 		System.out.println("10.- Eliminar empresa de la bolsa");
 		System.out.println("11.- Actualización de valores");
 		System.out.println("12.- Realizar copia de seguridad");
@@ -35,70 +34,66 @@ public class InterfazDeUsuario {
 	@SuppressWarnings("unused")
 	public static void seleccion(Integer opcion) {
 		switch (opcion) {
-		case 0:
-			System.out.println("Adiós.");
-			//se cierra
-			break;
-		
-	  	case 1:
-			
-			break;
-		case 2:
-			
-			break;
-		case 3:
-			
-			break;
-		case 4:
-			
-			break;
-		case 5:
-			
-			break;
-		case 6:
-			
-			break;
-		case 7:
-			
-			break;
-		case 8:
-			
-			break;
-		case 9:
-			
-			break;
-		case 10:
-			
-			break;
-		case 11:
-			
-			break;
-		case 12:
-			
-			break;
-		case 13:
-			
-			break;
-		case 14:
-			
-			break;
-		case 15:
-			
-			break;
-		case 16:
-			
-			break;
-		case 17:
-			
-			break;
-		case 18:
-			
-			break;
-		 
-
-		default:
-			System.out.println("Seleccione una opción válida por favor");
-			break;
+			case 0:		System.out.println("Adiós.");
+				System.out.println("----------------------------------------------");
+				break;
+		  	case 1:		System.out.println("Imprimir el estado de los clientes");
+				System.out.println("----------------------------------------------");
+				break;
+			case 2:		System.out.println("Imprimir el estado de la bolsa");
+				System.out.println("----------------------------------------------");
+				break;
+			case 3:		System.out.println("Añade un cliente");
+				System.out.println("----------------------------------------------");
+				break;
+			case 4:		System.out.println("Elimina un cliente");
+				System.out.println("----------------------------------------------");
+				break;
+			case 5:		System.out.println("Realizar copia de seguridad del banco");
+				System.out.println("----------------------------------------------");
+				break;
+			case 6:		System.out.println("Restaurar copia de seguridad del banco");
+				System.out.println("----------------------------------------------");
+				break;
+			case 7:		System.out.println("Mejorar categoría de un cliente a premium");
+				System.out.println("----------------------------------------------");
+				break;
+			case 8:		System.out.println("Solicitar recomendación de inversión");
+				System.out.println("----------------------------------------------");
+				break;
+			case 9:		System.out.println("Añadir una nueva empresa");
+				System.out.println("----------------------------------------------");
+				break;
+			case 10:	System.out.println("Eliminar una empresa");
+				System.out.println("----------------------------------------------");
+				break;
+			case 11:	System.out.println("Actualizar valores");
+				System.out.println("----------------------------------------------");
+				break;
+			case 12:	System.out.println("Realizar copia de seguridad de la bolsa");
+				System.out.println("----------------------------------------------");
+				break;
+			case 13:	System.out.println("Restaurar copia de seguridad de la bolsa");
+				System.out.println("----------------------------------------------");
+				break;
+			case 14:	System.out.println("Realizar solicitud de compra de acciones");
+				System.out.println("----------------------------------------------");
+				break;
+			case 15:	System.out.println("Realizar solicitud de venta de acciones");
+				System.out.println("----------------------------------------------");
+				break;
+			case 16:	System.out.println("Realizar solicitud de actualización de valores");
+				System.out.println("----------------------------------------------");
+				break;
+			case 17:	System.out.println("Imprimir operaciones pendientes de llevar a cabo");
+				System.out.println("----------------------------------------------");
+				break;
+			case 18:	System.out.println("Ejecutar operaciones pendientes");
+				System.out.println("----------------------------------------------");
+				break;
+			default:	System.out.println("Seleccione una opción válida por favor");
+				System.out.println("----------------------------------------------");
+				break;
 		}
 	}
 

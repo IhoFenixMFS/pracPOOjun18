@@ -2,7 +2,7 @@ package Bolsa;
 
 public class Empresa {
 	/*
-	 * mantiene la información de las acciones: valor, valor anterior e incremento.
+	 * Mantiene la información de las acciones: valor, valor anterior e incremento.
 	 */
 	private String nombre;
 	private double valorAcciones;
