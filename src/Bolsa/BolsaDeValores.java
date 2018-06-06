@@ -1,4 +1,7 @@
 package Bolsa;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Bolsa.Empresa;
 
 public class BolsaDeValores {
@@ -6,7 +9,7 @@ public class BolsaDeValores {
 	 * Gestiona la cotización de las acciones de las empresas y recibe solicitudes codificadas del bróker.
 	 */
 	String nombre;
-	ArrayList<Empresa> listaEmpresas = new ArrayList<Esmpresa>;
+	ArrayList<Empresa> listaEmpresas = new ArrayList<Empresa>();
 	
 
 	public String getNombre() {
@@ -30,17 +33,17 @@ public class BolsaDeValores {
 	}
 
 	public void borrarEmpresa (Empresa empresa) {
-		Iterator<Empresa> emp = this.getListaEmpresas.iterator();
+		Iterator<Empresa> emp = this.getListaEmpresas().iterator();
 		while (emp.hasNext()) {
 			if (emp.equals(empresa)) {
 				//this.getCarteraClientes.remove(emp);
-				remove(emp);
+				this.getListaEmpresas().remove(emp);
 			}
 		}
 	}
 	
 	public void mostrarEmpresas(){
-		Iterator<Empresa> cli = this.getListaEmpresas.iterator();
+		Iterator<Empresa> cli = this.getListaEmpresas().iterator();
 		byte indice=1;
 		for (Empresa empresa : listaEmpresas) {
 			System.out.println(indice + ")");

@@ -5,7 +5,8 @@ public class MensajeRespuestaCompra extends MensajeCompra{
 		double importe, int numAcciones, double invertido, double devolver)  throws Exception{
 		System.out.println(id+"|"+nomCli+"|"+nomEmp+"|"+importe+"|"+numAcciones+"|"+invertido+"|"+devolver);
 	}
-	public void errorCompraAcciones(){
+	
+	public static void errorCompraAcciones(){
 		System.out.println("Se ha producido un error y no se ha llevado a cabo la compra, diculpe las molestias");
 	}
 

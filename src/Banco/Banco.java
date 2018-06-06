@@ -1,12 +1,17 @@
 package Banco;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Banco.AgenteDeInversiones;
+import Banco.*;
+
 public class Banco {
 	/*
 	 * Gestiona los clientes y la relación entre estos y el bróker.
 	 */
 	String nombre;
 	AgenteDeInversiones broker;
-	ArrayList<Cliente> carteraClientes = new ArrayList<Cliente>;
+	ArrayList<Cliente> carteraClientes = new ArrayList<Cliente>();
 
 	public String getNombre() {
 		return nombre;
@@ -37,22 +42,21 @@ public class Banco {
 		this.carteraClientes.add(cliente);	
 	}
 
-	public void borrarCliente (Cliente clilente) {
-		Iterator<Cliente> cli = this.getCarteraClientes.iterator();
+	public void borrarCliente (Cliente cliente) {
+		Iterator<Cliente> cli = this.carteraClientes.iterator();
 		while (cli.hasNext()) {
 			if (cli.equals(cliente)) {
-				//this.getCarteraClientes.remove(cli);
-				remove(cli);
+				this.carteraClientes.remove(cli);
 			}
 		}
 	}
 
 	public void mostrarClientes () {
-		Iterator<Cliente> cli = this.getCarteraClientes.iterator();
+		Iterator<Cliente> cli = this.carteraClientes.iterator();
 		byte indice=1;
-		for (Cliente cli : carteraClientes) {
+		for (Cliente cliente : carteraClientes) {
 			System.out.println(indice + ")");
-			cli.mostrarDatos('b');
+			cliente.mostarDatos('b');
 		}
 	}
 

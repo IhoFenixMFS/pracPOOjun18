@@ -36,23 +36,23 @@ public class AgenteDeInversiones extends Persona{
 
 	public void ComprarAccion(){
 		System.out.println("Comprar acción. . .");
-		compraAcciones();
+		//compraAcciones();
 	}
 	
 	public void VenderAccion(){
 		System.out.println("Vender acción. . .");
-		venderAcciones();
+		//venderAcciones();
 	}
 
 	public void ActualizarBolsa(){
 		System.out.println("Actualizar valores. . .");
-		ActualizarValores();
+		//ActualizarValores();
 	}
 	
-	private boolean procesarSolicitudCompra(String solicitud) {
+/*	private boolean procesarSolicitudCompra(String solicitud) {
 		byte cant=0;
-		for(i=0; i<texto.length; i++){
-      		if (numeros.indexOf(texto.charAt(i),0)!="|"){
+		for(int i=0; i<solicitud.length(); i++){
+      		if (numeros.indexOf(solicitud.charAt(i),0)!="|"){
          		cant++;
 			}
 		}
@@ -84,9 +84,9 @@ public class AgenteDeInversiones extends Persona{
 			}
 
 		}
-	}
+	}*/
 
-	private void realizarPeticion(int id, String nomCli, String nomEmp, double importe){
+	/*private void realizarPeticion(int id, String nomCli, String nomEmp, double importe){
 		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
 		Empresa empresa = buscarNombre(nomEmpresa);
 		//almacenamos en numAcciones el valor maximo de acciones completas que se pueden comprar.
@@ -97,5 +97,5 @@ public class AgenteDeInversiones extends Persona{
 		double devolver = importe - invertido;
 
 		mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
-	}
+	}*/
 }
