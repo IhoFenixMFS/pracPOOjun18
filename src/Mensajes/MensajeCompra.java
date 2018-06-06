@@ -12,6 +12,6 @@ public class MensajeCompra extends Mensaje{
 		System.out.println("Debe indicar la compra con el siguiente formato:");
 		System.out.println("<id peticion>|<nombre cliente>|<nombre empresa>|<importe a invertir>");
 		String compra=Escaner.leerS();
-
+		AgenteDeInversiones.procesarSolicitudCompra(compra);
 	}
 }
