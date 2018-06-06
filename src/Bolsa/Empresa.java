@@ -42,4 +42,11 @@ public class Empresa {
 		this.incremento = incremento;
 	}
 
+	public void mostrarEstado(){
+    	System.out.println("Estado de la empresa " + this.getNombre());
+    	System.out.println("   Valor actual: " + this.getValorAcciones());
+    	System.out.println("   Variación: " + this.getIncremento());
+		System.out.println("----------------------------------------------");
+	}
+	
 }

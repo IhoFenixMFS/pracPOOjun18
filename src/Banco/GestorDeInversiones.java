@@ -1,7 +1,7 @@
 package Banco;
 
 /**
-* BROKER
+* BROKER - Consejero
 */
 public class GestorDeInversiones extends Persona {
 

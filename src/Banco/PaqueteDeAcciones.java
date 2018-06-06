@@ -14,18 +14,18 @@ public class PaqueteDeAcciones {
 	private double valorTitulo;
 	private double totalPaquete;
 	
-/* Cada paquete de acciones de un cliente es un listado de las distintas acciones que posee.
- * Por cada elemento del paquete se guarda un conjunto de acciones de una empresa.
- * Por ejemplo:
- *
- *	[	nombreEmpresa	|	numTitulos	|	valorTitulo	|	totalPaquete	]
- *	[		Empresa1	|		10		|		 5.20	|		52.00		]
- *	[		Empresa2	|		5		|		 3.70	|		18.50		]
- *	[		Empresa3	|		1		|		10.0	|		10.00		]
- *	[		Empresa4	|		7		|		 2.50	|		17.50		]
- *	[		Empresa5	|		3		|		 1.20	|		 3.60		]
- *
- */
+	/* Cada paquete de acciones de un cliente es un listado de las distintas acciones que posee.
+	 * Por cada elemento del paquete se guarda un conjunto de acciones de una empresa.
+	 * Por ejemplo:
+	 *
+	 *	[	nombreEmpresa	|	numTitulos	|	valorTitulo	|	totalPaquete	]
+	 *	[		Empresa1	|		10		|		 5.20	|		52.00		]
+	 *	[		Empresa2	|		5		|		 3.70	|		18.50		]
+	 *	[		Empresa3	|		1		|		10.0	|		10.00		]
+	 *	[		Empresa4	|		7		|		 2.50	|		17.50		]
+	 *	[		Empresa5	|		3		|		 1.20	|		 3.60		]
+	 *
+	 */
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}
@@ -66,7 +66,7 @@ public class PaqueteDeAcciones {
     }
 	
 	public PaqueteDeAcciones(String nombreEmpresa, Integer numTitulos, double valorTitulo) {
-		super();
+		//super();
 		this.nombreEmpresa = nombreEmpresa;
 		this.numTitulos = numTitulos;
 		this.valorTitulo = valorTitulo;

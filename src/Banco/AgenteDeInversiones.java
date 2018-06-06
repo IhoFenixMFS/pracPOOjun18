@@ -1,5 +1,10 @@
 package Banco;
-
+import Bolsa.Empresa;
+import Banco.*;
+import Mensajes.*;
+/*
+* BROKER - Actuador
+*/
 public class AgenteDeInversiones extends Persona{
 	/*
 	 * intermediario entre el banco y la bolsa.
@@ -15,26 +20,72 @@ public class AgenteDeInversiones extends Persona{
 		// TODO Auto-generated method stub
 		switch (opc) {
 		case 0:
-			System.out.println("Comprar acción");
+			ComprarAccion();
 			break;
 		case 1:
-			System.out.println("Vender acción");
+			VenderAccion();
 			break;
 		case 2:
-			System.out.println("Actualizar valores");
+			ActualizarValores();
 			break;
 
 		default:
-			break;
+			System.out.println("No se ha podido procesar la solicitud.");
 		}
-		
-		/*
-		 * comprar
-		 * vender
-		 * actualizar
-		 */
+	}
 
+	public void ComprarAccion(){
+		System.out.println("Comprar acción.");
 	}
 	
+	public void VenderAccion(){
+		System.out.println("Vender acción.");
+	}
+
+	public void ActualizarValores(){
+		System.out.println("Actualizar valores.");
+	}
 	
+	private boolean procesarSolicitud(String solicitud) {
+		byte cant=0;
+		for(i=0; i<texto.length; i++){
+      		if (numeros.indexOf(texto.charAt(i),0)!="|"){
+         		cant++;
+			}
+		}
+		if (cant!=3) {
+			return false;
+		} else {
+			try {
+				String[] corte = string.split("|");
+				String parte1 = corte[0];
+				String nomCli = corte[1];
+				String nomEmp = corte[2];
+				String parte4 = corte[3];
+
+				int id = Integer.parseInt(parte1);
+				double importe = Double.parseDouble(parte1);
+
+				//realizarPeticion(id, nomCli, nomEmp, importe);
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+
+		}
+	}
+
+	private void realizarPeticion(int id, String nomCli, String nomEmp, double importe){
+		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
+		Empresa empresa = buscarNombre(nomEmpresa);
+		//almacenamos en numAcciones el valor maximo de acciones completas que se pueden comprar.
+		int numAcciones = (int) calcularMaxAcciones(empresa, importe);
+		//calculamos lo que ha invertido.
+		double invertido = numAcciones * empresa.getValorAcciones();
+		//calculamos el dinero que le sobra.
+		double devolver = importe - invertido;
+
+		mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+	}
 }

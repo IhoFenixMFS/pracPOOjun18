@@ -4,7 +4,7 @@ import Banco.PaqueteDeAcciones;
 public class Cliente extends Persona{
 
 	double saldo;
-	PaqueteDeAcciones carteraDeAcciones[] = new PaqueteDeAcciones[10];
+	Collection <PaqueteDeAcciones> carteraDeAcciones = new ArrayList<PaqueteDeAcciones>;
 	
 	public double getSaldo() {
 		return saldo;
@@ -14,11 +14,11 @@ public class Cliente extends Persona{
 		this.saldo = saldo;
 	}
 
-	public PaqueteDeAcciones[] getCarteraDeAcciones() {
+	public ArrayList<PaqueteDeAcciones> getCarteraDeAcciones() {
 		return carteraDeAcciones;
 	}
 
-	public void setCarteraDeAcciones(PaqueteDeAcciones[] carteraDeAcciones) {
+	public void setCarteraDeAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
 		this.carteraDeAcciones = carteraDeAcciones;
 	}
 	
@@ -28,31 +28,48 @@ public class Cliente extends Persona{
 	}
 	
 	public Cliente (String nombre, String dni, double saldo) {
-		super(nombre,dni);
+		Cliente(nombre,dni);
         this.saldo = saldo;
     }
 
-    public Cliente (String nombre, String dni, double saldo, PaqueteDeAcciones carteraDeAcciones[]) {
-		super(nombre,dni);
-        this.saldo = saldo;
+    public Cliente (String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
+		Cliente(nombre,dni, saldo);
         this.carteraDeAcciones = carteraDeAcciones;
     }
 
-    public void mostarDatos() {
+    public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
+    	if (carteraDeAcciones.isEmpty()) {
+    		System.out.println("El cliente aún no posee cartera de acciones.");
+    	} else {
+    		byte indice=1;
+    		for (PaqueteDeAcciones acciones: carteraDeAcciones) {
+    			System.out.println(indice + ")");
+    			acciones.mostrarDatos();
+    		}	
+    	/*
+    		Iterator <PaqueteDeAcciones> acciones = carteraDeAcciones.iterator();
+    		while (acciones.hasNext()) {
+    			acciones.mostrarDatos();
+    		}
+    	*/
+    	}
+    }
+    public void mostarDatos(Char c) {
 		System.out.println("----------------------------------------------");
     	System.out.println("Datos del cliente:");
-    	System.out.println("   Nombre: " + getNombre());
-    	System.out.println("   DNI: " + getDni());
-    	System.out.println("   Saldo: " + getSaldo());
-    	try {
-    		System.out.println("- Cartera:");
-    		for (byte i = 0; i < carteraDeAcciones.length; i++ ) {
-    			carteraDeAcciones[i].mostrarDatos();
-	
-    		}
-    	}
-    	catch (Exception e) {
-    		System.out.println("El cliente aún no posee cartera de acciones.");
+    	System.out.println("   Nombre: " + this.getNombre());
+    	System.out.println("   DNI: " + this.getDni());
+    	System.out.println("   Saldo: " + this.getSaldo());
+    	switch (c){
+    		case 'b':
+    			double totalP = 0;
+    			for (PaqueteDeAcciones acc: carteraDeAcciones) {
+    				totalP+=acc.getTotalPaquete();
+    			}
+    			System.out.println("   Valor paquete: " + totalP);
+    		break;
+    		default:
+    			mostrarAcciones(this.getCarteraDeAcciones());
     	}
 		System.out.println("----------------------------------------------");
     }
