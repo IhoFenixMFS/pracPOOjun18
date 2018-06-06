@@ -26,7 +26,7 @@ public class AgenteDeInversiones extends Persona{
 			VenderAccion();
 			break;
 		case 2:
-			ActualizarValores();
+			ActualizarBolsa();
 			break;
 
 		default:
@@ -35,18 +35,21 @@ public class AgenteDeInversiones extends Persona{
 	}
 
 	public void ComprarAccion(){
-		System.out.println("Comprar acción.");
+		System.out.println("Comprar acción. . .");
+		compraAcciones();
 	}
 	
 	public void VenderAccion(){
-		System.out.println("Vender acción.");
+		System.out.println("Vender acción. . .");
+		venderAcciones();
 	}
 
-	public void ActualizarValores(){
-		System.out.println("Actualizar valores.");
+	public void ActualizarBolsa(){
+		System.out.println("Actualizar valores. . .");
+		ActualizarValores();
 	}
 	
-	private boolean procesarSolicitud(String solicitud) {
+	private boolean procesarSolicitudCompra(String solicitud) {
 		byte cant=0;
 		for(i=0; i<texto.length; i++){
       		if (numeros.indexOf(texto.charAt(i),0)!="|"){
@@ -65,8 +68,15 @@ public class AgenteDeInversiones extends Persona{
 
 				int id = Integer.parseInt(parte1);
 				double importe = Double.parseDouble(parte1);
+				
+				//buscar entre todos los clientes de la bolsa el elegido.
+				Cliente cli = buscarPorNombre(nomCli);
+				
+				realizarCompra(id, nomCli, nomEmp, importe);
 
-				//realizarPeticion(id, nomCli, nomEmp, importe);
+
+				actualizarCliente(cli);
+
 				return true;
 			}
 			catch (Exception) {
