@@ -54,10 +54,17 @@ public class BolsaDeValores {
 
 	public void RealizarCopiaDeSeguridad(){
 		//Realizar copia de seguridad del estado de la bolsa en disco, es decir, de TODO el OBJETO "Bolsa".
+		System.err.println("Completar método");
 	}
 
 	public void RestaurarCopiaDeSeguridad(){
 		//Restaurar copia de seguridad.
+		System.err.println("Completar método");
+	}
+
+	public static Empresa buscarEmpresaPorNombre(String nomEmp) {
+		System.err.println("Completar método");
+		return null;
 	}
 
 }

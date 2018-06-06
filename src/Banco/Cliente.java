@@ -1,5 +1,6 @@
 package Banco;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Banco.PaqueteDeAcciones;
 
@@ -43,12 +44,12 @@ public class Cliente extends Persona{
     			System.out.println(indice + ")");
     			acciones.mostrarDatos();
     		}	
-    	/*
+    	
     		Iterator <PaqueteDeAcciones> acciones = carteraDeAcciones.iterator();
     		while (acciones.hasNext()) {
-    			acciones.mostrarDatos();
+    			((PaqueteDeAcciones) acciones).mostrarDatos();
     		}
-    	*/
+    	
     	}
     }
     public void mostarDatos(char c) {
@@ -69,6 +70,10 @@ public class Cliente extends Persona{
     			mostrarAcciones(this.getCarteraDeAcciones());
     	}
 		System.out.println("----------------------------------------------");
+    }
+    
+    public static void actualizarValoresCliente(Cliente cli,double invertido,int numAcciones,String nomEmp) {
+    	System.err.println("Completar método");
     }
 }
 

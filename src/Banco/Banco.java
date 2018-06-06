@@ -62,10 +62,18 @@ public class Banco {
 
 	public void RealizarCopiaDeSeguridad(){
 		//Realizar copia de seguridad de los clientes del banco en disco, es decir, de TODO el OBJETO "Banco".
+		System.err.println("Completar método");
 	}
 
 	public void RestaurarCopiaDeSeguridad(){
 		//Restaurar copia de seguridad.
+		System.err.println("Completar método");
+	}
+
+	public static Cliente buscarPorNombre(String nomCli) {
+		// TODO Auto-generated method stub
+    	System.err.println("Completar método");
+		return null;
 	}
 
 }

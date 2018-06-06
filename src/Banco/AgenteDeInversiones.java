@@ -1,9 +1,12 @@
 package Banco;
+import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 import Banco.*;
-import Mensajes.*;
+import Mensajes.MensajeCompra;
+import Mensajes.MensajeRespuestaCompra;
+import General.Utilidades;
 /*
-* BROKER - Actuador
+ * BROKER - Actuador
 */
 public class AgenteDeInversiones extends Persona{
 	/*
@@ -49,18 +52,14 @@ public class AgenteDeInversiones extends Persona{
 		//ActualizarValores();
 	}
 	
-/*	private boolean procesarSolicitudCompra(String solicitud) {
-		byte cant=0;
-		for(int i=0; i<solicitud.length(); i++){
-      		if (numeros.indexOf(solicitud.charAt(i),0)!="|"){
-         		cant++;
-			}
-		}
+	public static void procesarSolicitudCompra(String solicitud) {
+		int cant= Utilidades.contarCaracter(solicitud, '|');
+		
 		if (cant!=3) {
-			return false;
+			MensajeRespuestaCompra.errorCompraAcciones();
 		} else {
 			try {
-				String[] corte = string.split("|");
+				String[] corte = solicitud.split("|");
 				String parte1 = corte[0];
 				String nomCli = corte[1];
 				String nomEmp = corte[2];
@@ -69,33 +68,31 @@ public class AgenteDeInversiones extends Persona{
 				int id = Integer.parseInt(parte1);
 				double importe = Double.parseDouble(parte1);
 				
-				//buscar entre todos los clientes de la bolsa el elegido.
-				Cliente cli = buscarPorNombre(nomCli);
-				
-				realizarCompra(id, nomCli, nomEmp, importe);
-
-
-				actualizarCliente(cli);
-
-				return true;
-			}
-			catch (Exception) {
-				return false;
+				realizarPeticion(id, nomCli, nomEmp, importe);
+		    	
+			}  catch (Exception e) {
+				// TODO: handle exception
+				MensajeRespuestaCompra.errorCompraAcciones();
 			}
 
 		}
-	}*/
+	}
 
-	/*private void realizarPeticion(int id, String nomCli, String nomEmp, double importe){
+	
+
+	private static void realizarPeticion(int id, String nomCli, String nomEmp, double importe) throws Exception{
 		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
-		Empresa empresa = buscarNombre(nomEmpresa);
+		Empresa empresa = BolsaDeValores.buscarEmpresaPorNombre(nomEmp);
 		//almacenamos en numAcciones el valor maximo de acciones completas que se pueden comprar.
-		int numAcciones = (int) calcularMaxAcciones(empresa, importe);
+		int numAcciones = (int) Utilidades.calcularMaxAcciones(empresa, importe);
 		//calculamos lo que ha invertido.
 		double invertido = numAcciones * empresa.getValorAcciones();
 		//calculamos el dinero que le sobra.
 		double devolver = importe - invertido;
-
-		mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
-	}*/
+		//buscar entre todos los clientes del banco el elegido.
+		Cliente cli = Banco.buscarPorNombre(nomCli);
+		Cliente.actualizarValoresCliente(cli, invertido, numAcciones, nomEmp);
+		
+		MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+	}
 }

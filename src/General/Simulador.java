@@ -54,9 +54,8 @@ public class Simulador {
 	public void simular() {
 		Integer teclado;		
 		try {
+			CrearObjetosDePruebas();
 			do {
-
-				CrearObjetosDePruebas();
 
 				InterfazDeUsuario.menu();
 				System.out.println();
