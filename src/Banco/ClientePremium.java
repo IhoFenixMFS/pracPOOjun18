@@ -1,4 +1,6 @@
 package Banco;
+import java.util.ArrayList;
+
 import Banco.Cliente;
 
 public class ClientePremium extends Cliente {
@@ -21,28 +23,31 @@ public class ClientePremium extends Cliente {
 		this.nombre = nombre;
 	}
 
-	public ClientePremium (String nombre, String dni, double saldo, String nombreB) {
+	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker) {
 		super(nombre,dni,saldo);
-		this.nombreB = nombreB;
+		this.nombreBroker = nombreBroker;
         this.catPremium = true;
     }
    
-	public ClientePremium (String nombre, String dni, double saldo, String nombreB, boolean catPremium) {
+	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, boolean catPremium) {
 		super(nombre,dni,saldo);
-		this.nombreB = nombreB;
+		this.nombreBroker = nombreBroker;
        this.catPremium = catPremium;
 	}
 	   
-	public ClientePremium (String nombre, String dni, double saldo, String nombreB, PaqueteDeAcciones carteraDeAcciones[]) {
-		super(nombre,dni, saldo, carteraDeAcciones);
-		this.nombreB = nombreB;
+	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, PaqueteDeAcciones carteraDeAcciones) {
+		super(nombre,dni, saldo);
+		this.nombreBroker = nombreBroker;
 		this.catPremium = true;
 	}
        
-	public ClientePremium (String nombre, String dni, double saldo, String nombreB, PaqueteDeAcciones carteraDeAcciones[], boolean catPremium) {
-    	super(nombre,dni, saldo, carteraDeAcciones);
-		this.nombreB = nombreB;
+	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, ArrayList<PaqueteDeAcciones> carteraDeAcciones, boolean catPremium) {
+    	super(nombre,dni, saldo);
+		this.nombreBroker = nombreBroker;
         this.catPremium = catPremium;
+        //this.carteraDeAcciones=(ArrayList<PaqueteDeAcciones>) carteraDeAcciones.clone();
 	}
+
+	
 
 }

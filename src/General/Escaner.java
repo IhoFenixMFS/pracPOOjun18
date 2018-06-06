@@ -12,4 +12,10 @@ public class Escaner {
 		return numero;
 	}
 	
+	public static String leerS() {
+		Scanner reader = new Scanner(System.in);
+		String texto = reader.toString();
+		return texto;
+	}
+	
 }

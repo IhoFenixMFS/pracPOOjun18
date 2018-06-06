@@ -1,10 +1,12 @@
 package Banco;
+import java.util.ArrayList;
+
 import Banco.PaqueteDeAcciones;
 
 public class Cliente extends Persona{
 
 	double saldo;
-	Collection <PaqueteDeAcciones> carteraDeAcciones = new ArrayList<PaqueteDeAcciones>;
+	ArrayList <PaqueteDeAcciones> carteraDeAcciones = new ArrayList<PaqueteDeAcciones>();
 	
 	public double getSaldo() {
 		return saldo;
@@ -28,13 +30,8 @@ public class Cliente extends Persona{
 	}
 	
 	public Cliente (String nombre, String dni, double saldo) {
-		Cliente(nombre,dni);
+		super(nombre,dni);
         this.saldo = saldo;
-    }
-
-    public Cliente (String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
-		Cliente(nombre,dni, saldo);
-        this.carteraDeAcciones = carteraDeAcciones;
     }
 
     public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
@@ -54,7 +51,7 @@ public class Cliente extends Persona{
     	*/
     	}
     }
-    public void mostarDatos(Char c) {
+    public void mostarDatos(char c) {
 		System.out.println("----------------------------------------------");
     	System.out.println("Datos del cliente:");
     	System.out.println("   Nombre: " + this.getNombre());

@@ -1,5 +1,7 @@
 package General;
 
+import java.util.ArrayList;
+
 import Banco.Cliente;
 import Banco.ClientePremium;
 import Banco.PaqueteDeAcciones;
@@ -13,10 +15,10 @@ public class Simulador {
 	Cliente cliente4;
 	Cliente cliente5;
 
-	PaqueteDeAcciones cartera1[];
-	PaqueteDeAcciones cartera2[];
-	PaqueteDeAcciones cartera3[];
-	PaqueteDeAcciones cartera4[];
+	ArrayList <PaqueteDeAcciones> cartera1 = new ArrayList<PaqueteDeAcciones>();
+	ArrayList <PaqueteDeAcciones> cartera2 = new ArrayList<PaqueteDeAcciones>();
+	ArrayList <PaqueteDeAcciones> cartera3 = new ArrayList<PaqueteDeAcciones>();
+	ArrayList <PaqueteDeAcciones> cartera4 = new ArrayList<PaqueteDeAcciones>();
 	
 	Empresa empresa1;
 	Empresa empresa2;
@@ -31,7 +33,7 @@ public class Simulador {
 		empresa2 = new Empresa("Empresa2",10.00,11.50,-1.5);
 		empresa3 = new Empresa("Empresa3",10.25,20.50,50);
 		empresa4 = new Empresa("Empresa4",6.00,6.00,00);
-
+/*
 	//Asignar valores a las carteras
 		cartera1[0] = new PaqueteDeAcciones("Empresa1", 2, 5.20);
 		cartera2[0] = new PaqueteDeAcciones("Empresa2", 5, 5.20);
@@ -46,7 +48,7 @@ public class Simulador {
 		cliente4 = new Cliente("Cliente4", "33333333D");
 		cliente5 = cliente3;
 		cliente5.setCarteraDeAcciones(cartera3);
-
+*/
 	}
 	
 	public void simular() {
