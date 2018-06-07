@@ -39,12 +39,12 @@ public class AgenteDeInversiones extends Persona{
 
 	public void ComprarAccion(){
 		System.out.println("Comprar acción. . .");
-		//compraAcciones();
+		MensajeCompra.compraAcciones();
 	}
 	
 	public void VenderAccion(){
 		System.out.println("Vender acción. . .");
-		//venderAcciones();
+		MensajeVenta.ventaAcciones();
 	}
 
 	public void ActualizarBolsa(){
@@ -54,46 +54,84 @@ public class AgenteDeInversiones extends Persona{
 	
 
 	public static void procesarSolicitudCompra(String solicitud) {
-		int cant= Utilidades.contarCaracter(solicitud, '|');
-		if (cant!=3) {
+		try {
+			String[] corte = solicitud.split("|");
+			String parte1 = corte[0];
+			String nomCli = corte[1];
+			String nomEmp = corte[2];
+			String parte4 = corte[3];
+
+			int id = Integer.parseInt(parte1);
+			double importe = Double.parseDouble(parte4);
+			
+			realizarPeticionCompra(id, nomCli, nomEmp, importe);
+	    	
+		}  catch (Exception e) {
+			// TODO: handle exception
 			MensajeRespuestaCompra.errorCompraAcciones();
-		} else {
-			try {
-				String[] corte = solicitud.split("|");
-				String parte1 = corte[0];
-				String nomCli = corte[1];
-				String nomEmp = corte[2];
-				String parte4 = corte[3];
+		}
+	}
 
-				int id = Integer.parseInt(parte1);
-				double importe = Double.parseDouble(parte1);
-				
-				realizarPeticion(id, nomCli, nomEmp, importe);
-		    	
-			}  catch (Exception e) {
-				// TODO: handle exception
-				MensajeRespuestaCompra.errorCompraAcciones();
-			}
+	public static void procesarSolicitudVenta(String solicitud) {
+		try {//<id peticion>|<nombre cliente>|<nombre empresa>|<numero de acciones a vender>
+			String[] corte = solicitud.split("|");
+			String parte1 = corte[0];
+			String nomCli = corte[1];
+			String nomEmp = corte[2];
+			String parte4 = corte[3];
 
+			int id = Integer.parseInt(parte1);
+			int acciones = Integer.parseInt(parte4);
+			
+			realizarPeticionCompra(id, nomCli, nomEmp, acciones);
+	    	
+		}  catch (Exception e) {
+			// TODO: handle exception
+			MensajeRespuestaCompra.errorCompraAcciones();
 		}
 	}
 
 
-	private static void realizarPeticion(int id, String nomCli, String nomEmp, double importe) throws Exception{
+	private static void realizarPeticionCompra(int id, String nomCli, String nomEmp, double importe) throws Exception{
 
 		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
 		Empresa empresa = BolsaDeValores.buscarEmpresaPorNombre(nomEmp);
+			//revisar
 		//almacenamos en numAcciones el valor maximo de acciones completas que se pueden comprar.
-		int numAcciones = (int) Utilidades.calcularMaxAcciones(empresa, importe);
-		//calculamos lo que ha invertido.
-		double invertido = numAcciones * empresa.getValorAcciones();
+		int numAcciones = Utilidades.calcularMaxAcciones(empresa, importe);
+		//calculamos lo que ha invertido en negativo
+		double invertido = - Utilidades.calcularImporteInvertido(empresa, importe);
+			//revisar
 		//calculamos el dinero que le sobra.
-		double devolver = importe - invertido;
+		double devolver = Utilidades.calcularImporteDevolver(empresa, importe);
 		
 		//buscar entre todos los clientes del banco el elegido.	+
--		Cliente cli = Banco.buscarPorNombre(nomCli);	
--		Cliente.actualizarValoresCliente(cli, invertido, numAcciones, nomEmp);
+-		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+			//revisar
+		//Se acctualica la cartera de valores del cliente
+-		cli.actualizarValoresCliente(invertido, numAcciones, empresa);
 		
 		MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+	}
+
+	private static void realizarPeticionVenta(int id, String nomCli, String nomEmp, int acciones) throws Exception{
+
+		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
+		Empresa empresa = BolsaDeValores.buscarEmpresaPorNombre(nomEmp);
+			//revisar		
+		//calculamos lo que ha invertido en negativo
+		double beneficio = Utilidades.calcularBeneficio(empresa, acciones);
+		//calculamos el dinero que le sobra.
+		
+		//buscar entre todos los clientes del banco el elegido.	+
+-		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+			//revisar
+		//Se acctualica la cartera de valores del cliente.
+-		cli.actualizarValoresCliente(beneficio, acciones, empresa);
+		
+		//recibimmos el saldo tras la venta.
+		double saldoFinal = cli.getSaldo();
+
+		MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
 	}
 }

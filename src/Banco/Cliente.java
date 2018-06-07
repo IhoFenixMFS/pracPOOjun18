@@ -63,7 +63,7 @@ public class Cliente extends Persona{
     	switch (c){
     		case 'b':
     			double totalP = 0;
-    			for (PaqueteDeAcciones acc: carteraDeAcciones) {
+    			for (PaqueteDeAcciones acc: this.carteraDeAcciones) {
     				totalP+=acc.getTotalPaquete();
     			}
     			System.out.println("   Valor paquete: " + totalP);
@@ -74,8 +74,40 @@ public class Cliente extends Persona{
 		System.out.println("----------------------------------------------");
     }
     
-    public static void actualizarValoresCliente(Cliente cli,double invertido,int numAcciones,String nomEmp) {
-    	System.err.println("Completar método");
+    public static void actualizarValoresCliente(double invertido,int numAcciones,Empresa empresa) {
+        //PaqueteDeAcciones(String nombreEmpresa, Integer numTitulos, double valorTitulo)
+        boolean encontrado=false;
+        ArrayList<PaqueteDeAcciones> cartera = this.carteraDeAcciones, 
+        String nomEmp = empresa.getNombre();
+        double valor = empresa.getValorAcciones();
+        
+        //recorremos la lista de paquetes de acciones en busca de acciones previas de la misma empresa
+        Iterator<PaqueteDeAcciones> paq = cartera.iterator();
+        while (paq.hasNext()){
+            String nombre = paq.getNombreEmpresa();
+            if (nombre.equals(nomEmp)) {
+                paq.actualizarPaquete(numAcciones, valor);
+                encontrado = true;
+            }
+        }
+        
+        /*
+         * Si no había acciones previas, se crea un nuevo paquete con las acciones compradas
+         * se controla que se estén comprando acciones,
+          * ya que si se venden el numero de acciones que se pasa es negativo.
+        */
+        if (!encontrado && numAcciones > 0) {
+            this.carteraDeAcciones.add(PaqueteDeAcciones(nomEmp, numAcciones, valor));
+        }
+
+        /*
+         * El importe en compra se pasa en negativo, por lo que se restaría al saldo del cliente,
+         * y en venta se pasa en positivo, por lo que se sumaría.
+        */
+        double saldoFinal = this.getSaldo + invertido;
+    	this.setSaldo(saldoFinal)
     }
+
+
 }
 

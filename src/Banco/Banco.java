@@ -70,10 +70,16 @@ public class Banco {
 		System.err.println("Completar método");
 	}
 
-	public static Cliente buscarPorNombre(String nomCli) {
-		// TODO Auto-generated method stub
-    	System.err.println("Completar método");
-		return null;
+	public static Cliente buscarClientePorNombre(String nomCli) {
+    	//revisar método
+		Cliente cli;
+		ArrayList<Cliente> listaClientes = this.getCarteraCLientes();
+		for (Cliente cliente : listaClientes) {
+			if ( nomCli.equals(cliente.getNombre()) ) {
+				cli = cliente;	
+			}
+		}
+		return cli;
 	}
 
 }

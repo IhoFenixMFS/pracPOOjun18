@@ -72,5 +72,12 @@ public class PaqueteDeAcciones {
 		this.valorTitulo = valorTitulo;
 		this.totalPaquete = numTitulos * valorTitulo;
 	}
+
+	public void actualizarPaquete(Integer difTitulos, double valorTitulo) {
+		
+		this.numTitulos = this.numTitulos+difTitulos;
+		this.valorTitulo = valorTitulo;
+		this.totalPaquete = numTitulos * valorTitulo;
+	}
 	
 }

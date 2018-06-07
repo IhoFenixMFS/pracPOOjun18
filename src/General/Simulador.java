@@ -33,13 +33,13 @@ public class Simulador {
 		empresa2 = new Empresa("Empresa2",10.00,11.50,-1.5);
 		empresa3 = new Empresa("Empresa3",10.25,20.50,50);
 		empresa4 = new Empresa("Empresa4",6.00,6.00,00);
-/*
+
 	//Asignar valores a las carteras
-		cartera1[0] = new PaqueteDeAcciones("Empresa1", 2, 5.20);
-		cartera2[0] = new PaqueteDeAcciones("Empresa2", 5, 5.20);
-		cartera2[1] = new PaqueteDeAcciones("Empresa3", 10, 2.00);
-		cartera2[2] = new PaqueteDeAcciones("Empresa4", 3, 3.70);
-		cartera3[0] = new PaqueteDeAcciones("Empresa4", 2, 12.50);
+		cartera1.add("Empresa1", 2, 5.20);
+		cartera2.add("Empresa2", 5, 5.20);
+		cartera2.add("Empresa3", 10, 2.00);
+		cartera2.add("Empresa4", 3, 3.70);
+		cartera3.add("Empresa4", 2, 12.50);
 
 	//Asignar valores a los clientes
 		cliente1 = new Cliente("Cliente1", "00000000A", 1500);
@@ -48,7 +48,7 @@ public class Simulador {
 		cliente4 = new Cliente("Cliente4", "33333333D");
 		cliente5 = cliente3;
 		cliente5.setCarteraDeAcciones(cartera3);
-*/
+
 	}
 	
 	public void simular() {

@@ -43,8 +43,8 @@ public class BolsaDeValores {
 	}
 	
 	public void mostrarEmpresas(){
-		Iterator<Empresa> cli = this.getListaEmpresas().iterator();
 		byte indice=1;
+		ArrayList<Empresa> listaEmpresas = this.getListaEmpresas();
 		for (Empresa empresa : listaEmpresas) {
 			System.out.println(indice + ")");
 			empresa.mostrarEstado();
@@ -63,8 +63,15 @@ public class BolsaDeValores {
 	}
 
 	public static Empresa buscarEmpresaPorNombre(String nomEmp) {
-		System.err.println("Completar método");
-		return null;
+		//revisar método
+		Empresa emp;
+		ArrayList<Empresa> listaEmpresas = this.getListaEmpresas();
+		for (Empresa empresa : listaEmpresas) {
+			if ( nomEmp.equals(empresa.getNombre()) ) {
+				emp = empresa;
+			}
+		}
+		return emp;
 	}
 
 }
