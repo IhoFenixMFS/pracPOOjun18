@@ -65,13 +65,15 @@ public class BolsaDeValores {
 	public static Empresa buscarEmpresaPorNombre(String nomEmp) {
 		//revisar método
 		Empresa emp;
-		ArrayList<Empresa> listaEmpresas = this.getListaEmpresas();
+		
+		ArrayList<Empresa> listaEmpresas=null;
+		//listaEmpresas = getListaEmpresas();
 		for (Empresa empresa : listaEmpresas) {
 			if ( nomEmp.equals(empresa.getNombre()) ) {
 				emp = empresa;
 			}
 		}
-		return emp;
+		return /*emp*/null;
 	}
 
 }

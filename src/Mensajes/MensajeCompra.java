@@ -1,5 +1,6 @@
 package Mensajes;
 import General.Escaner;
+import General.Utilidades;
 import Mensajes.MensajeRespuestaCompra;
 
 import Banco.AgenteDeInversiones;
@@ -12,7 +13,7 @@ public class MensajeCompra extends Mensaje{
 		System.err.println("Completar método");
 	}
 
-	public void compraAcciones () throws Exception{
+	public static void compraAcciones () throws Exception{
 		System.out.println("Ha seleccionado Comprar acciones.");
 		System.out.println("Debe indicar la compra con el siguiente formato:");
 		System.out.println("<id peticion>|<nombre cliente>|<nombre empresa>|<importe a invertir>");

@@ -4,6 +4,8 @@ import Bolsa.Empresa;
 import Banco.*;
 import Mensajes.MensajeCompra;
 import Mensajes.MensajeRespuestaCompra;
+import Mensajes.MensajeRespuestaVenta;
+import Mensajes.MensajeVenta;
 import General.Utilidades;
 /*
  * BROKER - Actuador
@@ -19,7 +21,7 @@ public class AgenteDeInversiones extends Persona{
 		// TODO Auto-generated constructor stub
 	}
 
-	private void procesarSolicitudBroker(Integer opc) {
+	public static void procesarSolicitudBroker(Integer opc) throws Exception {
 		// TODO Auto-generated method stub
 		switch (opc) {
 		case 0:
@@ -37,17 +39,17 @@ public class AgenteDeInversiones extends Persona{
 		}
 	}
 
-	public void ComprarAccion(){
-		System.out.println("Comprar acciÃ³n. . .");
+	public static void ComprarAccion() throws Exception{
+		System.out.println("Comprar acción. . .");
 		MensajeCompra.compraAcciones();
 	}
 	
-	public void VenderAccion(){
-		System.out.println("Vender acciÃ³n. . .");
+	public static void VenderAccion() throws Exception{
+		System.out.println("Vender acción. . .");
 		MensajeVenta.ventaAcciones();
 	}
 
-	public void ActualizarBolsa(){
+	public static void ActualizarBolsa(){
 		System.out.println("Actualizar valores. . .");
 		//ActualizarValores();
 	}
@@ -105,11 +107,11 @@ public class AgenteDeInversiones extends Persona{
 		//calculamos el dinero que le sobra.
 		double devolver = Utilidades.calcularImporteDevolver(empresa, importe);
 		
-		//buscar entre todos los clientes del banco el elegido.	+
--		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+		//buscar entre todos los clientes del banco el elegido.
+		Cliente cli = Banco.buscarClientePorNombre(nomCli);
 			//revisar
 		//Se acctualica la cartera de valores del cliente
--		cli.actualizarValoresCliente(invertido, numAcciones, empresa);
+		cli.actualizarValoresCliente(invertido, numAcciones, empresa);
 		
 		MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
 	}
@@ -123,15 +125,21 @@ public class AgenteDeInversiones extends Persona{
 		double beneficio = Utilidades.calcularBeneficio(empresa, acciones);
 		//calculamos el dinero que le sobra.
 		
-		//buscar entre todos los clientes del banco el elegido.	+
--		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+		//buscar entre todos los clientes del banco el elegido.
+		Cliente cli = Banco.buscarClientePorNombre(nomCli);
 			//revisar
 		//Se acctualica la cartera de valores del cliente.
--		cli.actualizarValoresCliente(beneficio, acciones, empresa);
+		cli.actualizarValoresCliente(beneficio, acciones, empresa);
 		
 		//recibimmos el saldo tras la venta.
 		double saldoFinal = cli.getSaldo();
 
 		MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
+	}
+
+	public static void actualizarValores() {
+		// TODO Auto-generated method stub
+		System.err.println("Completar método.");
+		
 	}
 }

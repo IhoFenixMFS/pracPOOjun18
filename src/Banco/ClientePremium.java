@@ -35,7 +35,7 @@ public class ClientePremium extends Cliente {
        this.catPremium = catPremium;
 	}
 	   
-	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, PaqueteDeAcciones carteraDeAcciones) {
+	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
 		super(nombre,dni, saldo);
 		this.nombreBroker = nombreBroker;
 		this.catPremium = true;
@@ -47,6 +47,8 @@ public class ClientePremium extends Cliente {
         this.catPremium = catPremium;
         //this.carteraDeAcciones=(ArrayList<PaqueteDeAcciones>) carteraDeAcciones.clone();
 	}
+
+
 
 	
 

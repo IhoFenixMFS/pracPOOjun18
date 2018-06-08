@@ -72,8 +72,8 @@ public class Banco {
 
 	public static Cliente buscarClientePorNombre(String nomCli) {
     	//revisar método
-		Cliente cli;
-		ArrayList<Cliente> listaClientes = this.getCarteraCLientes();
+		Cliente cli=null;
+		ArrayList<Cliente> listaClientes = null/*this.getCarteraCLientes()*/;
 		for (Cliente cliente : listaClientes) {
 			if ( nomCli.equals(cliente.getNombre()) ) {
 				cli = cliente;	

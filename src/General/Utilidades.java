@@ -1,10 +1,12 @@
 package General;
 
 import Bolsa.Empresa;
+import Mensajes.Mensaje;
+import Mensajes.MensajeRespuestaCompra;
 import Bolsa.BolsaDeValores;
 
 public class Utilidades {
-//	
+	
 	/*Generamos un número aleatorio decimal*/
 	private double numAleatt(Integer dsd, Integer hst) {
 		return (Math.random()*(hst-1)+dsd);
@@ -14,7 +16,7 @@ public class Utilidades {
 	public int numAleatInt (Integer dsd, Integer hst) {
 		return (int)(numAleatInt(dsd, hst));
 	}
-//	
+	
 	public static int contarCaracter(String texto, char c) {
         int pos, cont = 0;
         pos = texto.indexOf(c);
@@ -39,7 +41,7 @@ public class Utilidades {
 	}
 
 	public static double calcularImporteInvertido(Empresa empresa, double importe) {
-		double invertido = importe - calculaeImporteDevolver(empresa, importe);
+		double invertido = importe - calcularImporteDevolver(empresa, importe);
 		return invertido;
 	}
 
@@ -48,12 +50,12 @@ public class Utilidades {
 		return beneficio;
 	}
 
-	private int primerNumero(int num){
+	private static int primerNumero(int num){
 		int numero=num;
 		while (numero>10){
 			numero/=numero;
 		}
-		return ini;
+		return numero;
 	}
 
 	public static void almacenarSolicitud(String solicitud) {
@@ -69,7 +71,7 @@ public class Utilidades {
 				Mensaje.errorMensaje();
 				} else if (iniId == 1) {
 					almacenarSolicitudCompra(id, solicitud);
-				} else if (ini==2){
+				} else if (iniId==2){
 
 				}
 			} else if (iniId==3) {
@@ -81,7 +83,7 @@ public class Utilidades {
 		}	
 	}
 
-	private void almacenarSolicitudCompra(int id, String solicitud){
+	private static void almacenarSolicitudCompra(int id, String solicitud){
 		try {//<id peticion>|<nombre cliente>|<nombre empresa>|<numero de acciones a vender>
 			String[] corte = solicitud.split("|");
 			//int ultId = this.getUltId();

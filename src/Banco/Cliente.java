@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 
 import Banco.PaqueteDeAcciones;
+import Bolsa.Empresa;
 
 public class Cliente extends Persona{
 
@@ -27,8 +28,10 @@ public class Cliente extends Persona{
 		this.carteraDeAcciones = carteraDeAcciones;
 	}
 	
-	public Cliente(String nombre, String dni) {
+	public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
 		super(nombre, dni);
+		this.carteraDeAcciones = carteraDeAcciones;
+		this.saldo = saldo;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -74,19 +77,19 @@ public class Cliente extends Persona{
 		System.out.println("----------------------------------------------");
     }
     
-    public static void actualizarValoresCliente(double invertido,int numAcciones,Empresa empresa) {
+    public void actualizarValoresCliente(double invertido,int numAcciones,Empresa empresa) {
         //PaqueteDeAcciones(String nombreEmpresa, Integer numTitulos, double valorTitulo)
         boolean encontrado=false;
-        ArrayList<PaqueteDeAcciones> cartera = this.carteraDeAcciones, 
+        ArrayList<PaqueteDeAcciones> cartera = this.carteraDeAcciones;
         String nomEmp = empresa.getNombre();
         double valor = empresa.getValorAcciones();
         
         //recorremos la lista de paquetes de acciones en busca de acciones previas de la misma empresa
         Iterator<PaqueteDeAcciones> paq = cartera.iterator();
         while (paq.hasNext()){
-            String nombre = paq.getNombreEmpresa();
+            String nombre = ((PaqueteDeAcciones) paq).getNombreEmpresa();
             if (nombre.equals(nomEmp)) {
-                paq.actualizarPaquete(numAcciones, valor);
+                ((PaqueteDeAcciones) paq).actualizarPaquete(numAcciones, valor);
                 encontrado = true;
             }
         }
@@ -97,15 +100,16 @@ public class Cliente extends Persona{
           * ya que si se venden el numero de acciones que se pasa es negativo.
         */
         if (!encontrado && numAcciones > 0) {
-            this.carteraDeAcciones.add(PaqueteDeAcciones(nomEmp, numAcciones, valor));
+        	PaqueteDeAcciones paquete = new PaqueteDeAcciones(nomEmp, numAcciones, valor);
+            this.carteraDeAcciones.add(paquete);
         }
 
         /*
          * El importe en compra se pasa en negativo, por lo que se restaría al saldo del cliente,
          * y en venta se pasa en positivo, por lo que se sumaría.
         */
-        double saldoFinal = this.getSaldo + invertido;
-    	this.setSaldo(saldoFinal)
+        double saldoFinal = this.getSaldo() + invertido;
+    	this.setSaldo(saldoFinal);
     }
 
 

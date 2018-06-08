@@ -1,4 +1,5 @@
 package General;
+import Banco.AgenteDeInversiones;
 
 public class InterfazDeUsuario {
 
@@ -32,7 +33,7 @@ public class InterfazDeUsuario {
 	}
 
 	@SuppressWarnings("unused")
-	public static void seleccion(Integer opcion) {
+	public static void seleccion(Integer opcion) throws Exception {
 		switch (opcion) {
 			case 0:		
 				System.out.println("Adiós.");
@@ -81,7 +82,7 @@ public class InterfazDeUsuario {
 				break;
 			case 11:
 				System.out.println("Actualizar valores");
-				AgenteDeInversores.procesarSolicitudBroker(2);
+				AgenteDeInversiones.procesarSolicitudBroker(2);
 				System.out.println("----------------------------------------------");
 				break;
 			case 12:
@@ -94,12 +95,12 @@ public class InterfazDeUsuario {
 				break;
 			case 14:
 				System.out.println("Realizar solicitud de compra de acciones");
-				AgenteDeInversores.procesarSolicitudBroker(0);
+				AgenteDeInversiones.procesarSolicitudBroker(0);
 				System.out.println("----------------------------------------------");
 				break;
 			case 15:
 				System.out.println("Realizar solicitud de venta de acciones");
-				AgenteDeInversores.procesarSolicitudBroker(1);
+				AgenteDeInversiones.procesarSolicitudBroker(1);
 				System.out.println("----------------------------------------------");
 				break;
 			case 16:

@@ -1,4 +1,6 @@
 package Mensajes;
+import java.util.ArrayList;
+
 import General.Escaner;
 
 public class Mensaje {
@@ -6,18 +8,22 @@ public class Mensaje {
 	 * Implementar clase de captura de errores.
 	 * Hacer un ArrayList<String> de peticiones
 	*/
-	/* v Revisar v */
 	ArrayList<String> peticiones = new ArrayList<String>();
+	
+	/*public Mensaje(ArrayList<String> peticiones) {
+		super();
+		this.peticiones = peticiones;
+	}*/
 
-	public ArrayList<String> getPeticiones(){
-		return this.peticiones;
+	public ArrayList<String> getPeticiones() {
+		return peticiones;
 	}
 
-	public void setPeticiones(String mensaje){
-		this.mensaje=mensaje;
+	public void setPeticiones(ArrayList<String> peticiones) {
+		this.peticiones = peticiones;
 	}
-	/* ^ Revisar ^ */
-	static void errorMensaje() throws Exception {
+
+	public static void errorMensaje() throws Exception {
         System.out.println( "Formato de petición incurrecto." );
     }
 

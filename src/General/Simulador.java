@@ -35,17 +35,22 @@ public class Simulador {
 		empresa4 = new Empresa("Empresa4",6.00,6.00,00);
 
 	//Asignar valores a las carteras
-		cartera1.add("Empresa1", 2, 5.20);
-		cartera2.add("Empresa2", 5, 5.20);
-		cartera2.add("Empresa3", 10, 2.00);
-		cartera2.add("Empresa4", 3, 3.70);
-		cartera3.add("Empresa4", 2, 12.50);
+		PaqueteDeAcciones p1= new PaqueteDeAcciones("Empresa1", 2, 5.20);
+		PaqueteDeAcciones p2= new PaqueteDeAcciones("Empresa1", 2, 5.20);
+		PaqueteDeAcciones p3= new PaqueteDeAcciones("Empresa1", 2, 5.20);
+		PaqueteDeAcciones p4= new PaqueteDeAcciones("Empresa1", 2, 5.20);
+
+		cartera1.add(cartera1.size(), p1);
+		cartera2.add(cartera2.size(), p2);
+		cartera2.add(cartera2.size(), p3);
+		cartera2.add(cartera2.size(), p4);
+		cartera3.add(cartera3.size(), p4);
 
 	//Asignar valores a los clientes
 		cliente1 = new Cliente("Cliente1", "00000000A", 1500);
 		cliente2 = new Cliente("Cliente2", "11111111B", 12500, cartera2);
-		cliente3 = new ClientePremium("Cliente3", "22222222C", 123500, cartera1);
-		cliente4 = new Cliente("Cliente4", "33333333D");
+		cliente3 = new ClientePremium("Cliente3", "22222222C", 123500, "Broker1", cartera1);
+		cliente4 = new Cliente("Cliente4", "33333333D", 0);
 		cliente5 = cliente3;
 		cliente5.setCarteraDeAcciones(cartera3);
 

@@ -1,5 +1,6 @@
 package Mensajes;
 import General.Utilidades;
+import Banco.AgenteDeInversiones;
 import General.Escaner;
 
 public class MensajeActualizacion extends Mensaje{
@@ -13,6 +14,6 @@ public class MensajeActualizacion extends Mensaje{
 		System.out.println("Un momento por favor.");
 		
 		System.err.println("Completar método");
-		actualizarValores();
+		AgenteDeInversiones.actualizarValores();
 	}
 }
