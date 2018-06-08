@@ -1,11 +1,20 @@
 package Banco;
 import java.util.ArrayList;
+import java.util.List;
 
 import Banco.Cliente;
 
 public class ClientePremium extends Cliente {
 	boolean catPremium;
-	String nombreBroker;
+	GestorDeInversiones broker;
+
+	public GestorDeInversiones getBroker() {
+		return broker;
+	}
+
+	public void setBroker(GestorDeInversiones broker) {
+		this.broker = broker;
+	}
 
 	public boolean getCatPremium() {
 		return catPremium;
@@ -23,33 +32,50 @@ public class ClientePremium extends Cliente {
 		this.nombre = nombre;
 	}
 
-	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker) {
+	public ClientePremium (String nombre, String dni, double saldo, GestorDeInversiones broker) {
 		super(nombre,dni,saldo);
-		this.nombreBroker = nombreBroker;
+		this.broker = broker;
         this.catPremium = true;
     }
    
-	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, boolean catPremium) {
+	public ClientePremium (String nombre, String dni, double saldo, GestorDeInversiones broker, boolean catPremium) {
 		super(nombre,dni,saldo);
-		this.nombreBroker = nombreBroker;
+		this.broker = broker;
        this.catPremium = catPremium;
 	}
 	   
-	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
+	public ClientePremium (String nombre, String dni, double saldo, GestorDeInversiones broker, ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
 		super(nombre,dni, saldo);
-		this.nombreBroker = nombreBroker;
+		this.broker = broker;
 		this.catPremium = true;
+		ArrayList<PaqueteDeAcciones> clone = new ArrayList<PaqueteDeAcciones>(carteraDeAcciones.size());
+        for (PaqueteDeAcciones item : carteraDeAcciones) {
+        	clone.add(item.clone());
+        }
+        this.carteraDeAcciones=clone;
 	}
        
-	public ClientePremium (String nombre, String dni, double saldo, String nombreBroker, ArrayList<PaqueteDeAcciones> carteraDeAcciones, boolean catPremium) {
+	public ClientePremium (String nombre, String dni, double saldo, GestorDeInversiones broker, ArrayList<PaqueteDeAcciones> carteraDeAcciones, boolean catPremium) {
     	super(nombre,dni, saldo);
-		this.nombreBroker = nombreBroker;
+		this.broker = broker;
         this.catPremium = catPremium;
-        //this.carteraDeAcciones=(ArrayList<PaqueteDeAcciones>) carteraDeAcciones.clone();
+        
+        ArrayList<PaqueteDeAcciones> clone = new ArrayList<PaqueteDeAcciones>(carteraDeAcciones.size());
+        for (PaqueteDeAcciones item : carteraDeAcciones) {
+        	clone.add(item.clone());
+        }
+        this.carteraDeAcciones=clone;
 	}
-
-
-
+	
+	private ClientePremium(Cliente c, GestorDeInversiones broker) {
+		super(c.nombre, c.dni, c.saldo);
+		this.broker = broker;
+        this.catPremium = true;
+	}
+	public void MejorarAPremium (ClientePremium p, Cliente c, GestorDeInversiones b) {
+		p = new ClientePremium(c,b);
+		//borrarCliente(c);
+	}
 	
 
 }

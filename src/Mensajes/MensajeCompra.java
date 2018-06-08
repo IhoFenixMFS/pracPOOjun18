@@ -4,20 +4,21 @@ import General.Utilidades;
 import Mensajes.MensajeRespuestaCompra;
 
 import Banco.AgenteDeInversiones;
-
+import Banco.Banco;
+import Bolsa.BolsaDeValores;
 import Mensajes.Mensaje;
 
 public class MensajeCompra extends Mensaje{
-	public void RealizarPeticion()  throws Exception{
+	public void RealizarPeticion() {
 		//añadir un elemento con id 1*** al arrayList de mensajes
 		System.err.println("Completar método");
 	}
 
-	public static void compraAcciones () throws Exception{
+	public static void compraAcciones (BolsaDeValores bolsa, Banco banco){
 		System.out.println("Ha seleccionado Comprar acciones.");
 		System.out.println("Debe indicar la compra con el siguiente formato:");
 		System.out.println("<id peticion>|<nombre cliente>|<nombre empresa>|<importe a invertir>");
 		String compra=Escaner.leerS();
-		Utilidades.almacenarSolicitud(compra);
+		Utilidades.almacenarSolicitud(bolsa, banco, compra);
 	}
 }

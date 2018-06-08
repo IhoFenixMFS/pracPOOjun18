@@ -2,7 +2,6 @@ package Banco;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Banco.AgenteDeInversiones;
 import Banco.*;
 
 public class Banco {
@@ -10,9 +9,9 @@ public class Banco {
 	 * Gestiona los clientes y la relación entre estos y el bróker.
 	 */
 	String nombre;
-	AgenteDeInversiones broker;
+	GestorDeInversiones broker;
 	ArrayList<Cliente> carteraClientes = new ArrayList<Cliente>();
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -21,12 +20,12 @@ public class Banco {
 		this.nombre = nombre;
 	}
 
-	public AgenteDeInversiones getBroker() {
+	public GestorDeInversiones getBroker() {
 		return broker;
 	}
 
 
-	public void setBroker(AgenteDeInversiones broker) {
+	public void setBroker(GestorDeInversiones broker) {
 		this.broker = broker;
 	}
 
@@ -42,6 +41,13 @@ public class Banco {
 		this.carteraClientes.add(cliente);	
 	}
 
+	public Banco(String nombre, GestorDeInversiones broker, ArrayList<Cliente> carteraClientes) {
+		super();
+		this.nombre = nombre;
+		this.broker = broker;
+		this.carteraClientes = carteraClientes;
+	}
+	
 	public void borrarCliente (Cliente cliente) {
 		Iterator<Cliente> cli = this.carteraClientes.iterator();
 		while (cli.hasNext()) {
@@ -80,6 +86,32 @@ public class Banco {
 			}
 		}
 		return cli;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Banco other = (Banco) obj;
+		if (broker == null) {
+			if (other.broker != null)
+				return false;
+		} else if (!broker.equals(other.broker))
+			return false;
+		if (carteraClientes == null) {
+			if (other.carteraClientes != null)
+				return false;
+		} else if (!carteraClientes.equals(other.carteraClientes))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
 	}
 
 }

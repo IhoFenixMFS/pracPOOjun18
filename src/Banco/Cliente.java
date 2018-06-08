@@ -112,6 +112,30 @@ public class Cliente extends Persona{
     	this.setSaldo(saldoFinal);
     }
 
+	public void clone(Cliente cliente3) {
+		this.saldo = cliente3.saldo;
+		
+		
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (carteraDeAcciones == null) {
+			if (other.carteraDeAcciones != null)
+				return false;
+		} else if (!carteraDeAcciones.equals(other.carteraDeAcciones))
+			return false;
+		if (Double.doubleToLongBits(saldo) != Double.doubleToLongBits(other.saldo))
+			return false;
+		return true;
+	}
+
 
 }
 

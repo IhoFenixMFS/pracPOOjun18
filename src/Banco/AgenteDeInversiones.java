@@ -2,10 +2,13 @@ package Banco;
 import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 import Banco.*;
+import Mensajes.Mensaje;
 import Mensajes.MensajeCompra;
 import Mensajes.MensajeRespuestaCompra;
 import Mensajes.MensajeRespuestaVenta;
 import Mensajes.MensajeVenta;
+import sun.util.BuddhistCalendar;
+import General.Escaner;
 import General.Utilidades;
 /*
  * BROKER - Actuador
@@ -21,17 +24,17 @@ public class AgenteDeInversiones extends Persona{
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void procesarSolicitudBroker(Integer opc) throws Exception {
+	public static void procesarSolicitudBroker(BolsaDeValores bolsa, Banco banco,Integer opc) {
 		// TODO Auto-generated method stub
 		switch (opc) {
 		case 0:
-			ComprarAccion();
+			ComprarAccion(bolsa, banco);
 			break;
 		case 1:
-			VenderAccion();
+			VenderAccion(bolsa, banco);
 			break;
 		case 2:
-			ActualizarBolsa();
+			bolsa.ActualizarValores();
 			break;
 
 		default:
@@ -39,23 +42,22 @@ public class AgenteDeInversiones extends Persona{
 		}
 	}
 
-	public static void ComprarAccion() throws Exception{
+	public static void ComprarAccion(BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Comprar acción. . .");
-		MensajeCompra.compraAcciones();
+		MensajeCompra.compraAcciones(bolsa, banco);
 	}
 	
-	public static void VenderAccion() throws Exception{
+	public static void VenderAccion(BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Vender acción. . .");
-		MensajeVenta.ventaAcciones();
+		MensajeVenta.ventaAcciones(bolsa, banco);
 	}
 
-	public static void ActualizarBolsa(){
+	public static void ActualizarBolsa(BolsaDeValores bolsa){
 		System.out.println("Actualizar valores. . .");
-		//ActualizarValores();
+		bolsa.ActualizarValores();
 	}
 	
-
-	public static void procesarSolicitudCompra(String solicitud) {
+	public static void procesarSolicitudCompra(BolsaDeValores bolsa, Banco banco, String solicitud) {
 		try {
 			String[] corte = solicitud.split("|");
 			String parte1 = corte[0];
@@ -66,7 +68,7 @@ public class AgenteDeInversiones extends Persona{
 			int id = Integer.parseInt(parte1);
 			double importe = Double.parseDouble(parte4);
 			
-			realizarPeticionCompra(id, nomCli, nomEmp, importe);
+			realizarPeticionCompra(bolsa, banco, id, nomCli, nomEmp, importe);
 	    	
 		}  catch (Exception e) {
 			// TODO: handle exception
@@ -74,7 +76,7 @@ public class AgenteDeInversiones extends Persona{
 		}
 	}
 
-	public static void procesarSolicitudVenta(String solicitud) {
+	public static void procesarSolicitudVenta(BolsaDeValores bolsa, Banco banco, String solicitud) {
 		try {//<id peticion>|<nombre cliente>|<nombre empresa>|<numero de acciones a vender>
 			String[] corte = solicitud.split("|");
 			String parte1 = corte[0];
@@ -85,7 +87,7 @@ public class AgenteDeInversiones extends Persona{
 			int id = Integer.parseInt(parte1);
 			int acciones = Integer.parseInt(parte4);
 			
-			realizarPeticionCompra(id, nomCli, nomEmp, acciones);
+			realizarPeticionCompra(bolsa, banco, id, nomCli, nomEmp, acciones);
 	    	
 		}  catch (Exception e) {
 			// TODO: handle exception
@@ -93,11 +95,10 @@ public class AgenteDeInversiones extends Persona{
 		}
 	}
 
-
-	private static void realizarPeticionCompra(int id, String nomCli, String nomEmp, double importe) throws Exception{
+	private static void realizarPeticionCompra(BolsaDeValores bolsa, Banco banco, int id, String nomCli, String nomEmp, double importe) throws Exception{
 
 		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
-		Empresa empresa = BolsaDeValores.buscarEmpresaPorNombre(nomEmp);
+		Empresa empresa = bolsa.buscarEmpresaPorNombre(nomEmp);
 			//revisar
 		//almacenamos en numAcciones el valor maximo de acciones completas que se pueden comprar.
 		int numAcciones = Utilidades.calcularMaxAcciones(empresa, importe);
@@ -108,7 +109,7 @@ public class AgenteDeInversiones extends Persona{
 		double devolver = Utilidades.calcularImporteDevolver(empresa, importe);
 		
 		//buscar entre todos los clientes del banco el elegido.
-		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+		Cliente cli = banco.buscarClientePorNombre(nomCli);
 			//revisar
 		//Se acctualica la cartera de valores del cliente
 		cli.actualizarValoresCliente(invertido, numAcciones, empresa);
@@ -116,17 +117,17 @@ public class AgenteDeInversiones extends Persona{
 		MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
 	}
 
-	private static void realizarPeticionVenta(int id, String nomCli, String nomEmp, int acciones) throws Exception{
+	private static void realizarPeticionVenta(BolsaDeValores bolsa, Banco banco, int id, String nomCli, String nomEmp, int acciones) throws Exception{
 
 		//Recibimos el objeto Empresa al que deseamos comprarle acciones.
-		Empresa empresa = BolsaDeValores.buscarEmpresaPorNombre(nomEmp);
+		Empresa empresa = bolsa.buscarEmpresaPorNombre(nomEmp);
 			//revisar		
 		//calculamos lo que ha invertido en negativo
 		double beneficio = Utilidades.calcularBeneficio(empresa, acciones);
 		//calculamos el dinero que le sobra.
 		
 		//buscar entre todos los clientes del banco el elegido.
-		Cliente cli = Banco.buscarClientePorNombre(nomCli);
+		Cliente cli = banco.buscarClientePorNombre(nomCli);
 			//revisar
 		//Se acctualica la cartera de valores del cliente.
 		cli.actualizarValoresCliente(beneficio, acciones, empresa);
@@ -137,9 +138,4 @@ public class AgenteDeInversiones extends Persona{
 		MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
 	}
 
-	public static void actualizarValores() {
-		// TODO Auto-generated method stub
-		System.err.println("Completar método.");
-		
-	}
 }
