@@ -2,13 +2,22 @@ package General;
 
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+
+import Banco.Banco;
 import Banco.Cliente;
 import Banco.ClientePremium;
+import Banco.GestorDeInversiones;
 import Banco.PaqueteDeAcciones;
+import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 
 public class Simulador {
-
+	
+	BolsaDeValores bolsa;
+	Banco banco;
+	GestorDeInversiones broker;
+	
 	Cliente cliente1;
 	Cliente cliente2;
 	Cliente cliente3;
@@ -23,8 +32,6 @@ public class Simulador {
 	Empresa empresa1;
 	Empresa empresa2;
 	Empresa empresa3;
-	Empresa empresa4;
-	Empresa empresa5;
 	
 	public void CrearObjetosDePruebas() 
 	{
@@ -32,40 +39,61 @@ public class Simulador {
 		empresa1 = new Empresa("Empresa1",25.00,22.50,10);
 		empresa2 = new Empresa("Empresa2",10.00,11.50,-1.5);
 		empresa3 = new Empresa("Empresa3",10.25,20.50,50);
-		empresa4 = new Empresa("Empresa4",6.00,6.00,00);
 
 	//Asignar valores a las carteras
 		PaqueteDeAcciones p1= new PaqueteDeAcciones("Empresa1", 2, 5.20);
-		PaqueteDeAcciones p2= new PaqueteDeAcciones("Empresa1", 2, 5.20);
-		PaqueteDeAcciones p3= new PaqueteDeAcciones("Empresa1", 2, 5.20);
-		PaqueteDeAcciones p4= new PaqueteDeAcciones("Empresa1", 2, 5.20);
-
-		cartera1.add(cartera1.size(), p1);
-		cartera2.add(cartera2.size(), p2);
-		cartera2.add(cartera2.size(), p3);
-		cartera2.add(cartera2.size(), p4);
-		cartera3.add(cartera3.size(), p4);
+		PaqueteDeAcciones p2= new PaqueteDeAcciones("Empresa2", 7, 12.50);
+		PaqueteDeAcciones p3= new PaqueteDeAcciones("Empresa3", 5, 3.45);
+		PaqueteDeAcciones p4= new PaqueteDeAcciones("Empresa4", 3, 1.80);
+		
+		cartera1.add(p1);
+		cartera2.add(p2);
+		cartera2.add(p3);
+		cartera2.add(p4);
+		cartera3.add(p4);
+	
+	//Crear Broker
+		broker = new GestorDeInversiones("Broker1", "01234567I");
 
 	//Asignar valores a los clientes
 		cliente1 = new Cliente("Cliente1", "00000000A", 1500);
 		cliente2 = new Cliente("Cliente2", "11111111B", 12500, cartera2);
-		cliente3 = new ClientePremium("Cliente3", "22222222C", 123500, "Broker1", cartera1);
+		cliente3 = new ClientePremium("Cliente3", "22222222C", 123500, broker, cartera1);
 		cliente4 = new Cliente("Cliente4", "33333333D", 0);
-		cliente5 = cliente3;
+		cliente5.clone(cliente3);
 		cliente5.setCarteraDeAcciones(cartera3);
+		
 
+	}
+	
+	private void CrearBase() {
+		ArrayList<Empresa>listaEmp= new ArrayList<Empresa>();
+		listaEmp.add(empresa1);
+		listaEmp.add(empresa2);
+		listaEmp.add(empresa3);
+		bolsa = new BolsaDeValores("Bolsa única", listaEmp);
+		
+		ArrayList<Cliente> listaCli = new ArrayList<Cliente>();
+		listaCli.add(cliente1);
+		listaCli.add(cliente2);
+		listaCli.add(cliente3);
+		listaCli.add(cliente4);
+		listaCli.add(cliente5);
+		banco = new Banco("Banco", broker, listaCli);
+		
 	}
 	
 	public void simular() {
 		Integer teclado;		
 		try {
+			CrearBase();
 			CrearObjetosDePruebas();
 			do {
 
 				InterfazDeUsuario.menu();
 				System.out.println();
 				teclado = Escaner.leer();
-				InterfazDeUsuario.seleccion(teclado);
+				InterfazDeUsuario.seleccion(bolsa, banco, teclado);
 			} while (teclado!=0);
 			
 		} catch (Exception e) {
@@ -75,5 +103,7 @@ public class Simulador {
 			System.err.println(":)");
 		}
 	}
+
+	
 	
 }
