@@ -32,10 +32,15 @@ public class ClientePremium extends Cliente {
 		super(c.nombre, c.dni, c.saldo);
 		this.broker = broker;
 	}
-	public void MejorarAPremium (ClientePremium p, Cliente c, GestorDeInversiones b, Banco ba) {
-		p = new ClientePremium(c,b);
-				ba.borrarCliente(c);
+	public ClientePremium() {
+		super();
+	}
+
+	public static ClientePremium mejorarAPremium (Cliente c,GestorDeInversiones b, Banco ba) {
+		ClientePremium p = new ClientePremium(c,b);
+				ba.eliminarCliente(c);
 		ba.carteraClientes.add(p);
+		return p;
 	}
 	
 

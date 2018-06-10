@@ -11,12 +11,12 @@ public class MensajeVenta extends Mensaje{
 		System.err.println("Completar método");
 	}
 
-	public static void ventaAcciones (BolsaDeValores bolsa, Banco banco) {
+	public static String ventaAcciones (BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Ha seleccionado Vender acciones.");
 		System.out.println("Debe indicar la venta con el siguiente formato:");
 		System.out.println("<id peticion>|<nombre cliente>|<nombre empresa>|<numero de acciones a vender>");
 		String venta=Escaner.leerS();
-		Utilidades.almacenarSolicitud(bolsa, banco,venta);
+		return venta;
 	}
 	
 }

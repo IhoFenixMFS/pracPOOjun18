@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Banco.*;
+import General.Escaner;
 
 public class Banco {
 	/*
@@ -23,7 +24,6 @@ public class Banco {
 	public GestorDeInversiones getBroker() {
 		return broker;
 	}
-
 
 	public void setBroker(GestorDeInversiones broker) {
 		this.broker = broker;
@@ -48,7 +48,66 @@ public class Banco {
 		this.carteraClientes = carteraClientes;
 	}
 	
-	public void borrarCliente (Cliente cliente) {
+	public void borrarCliente() {
+		System.out.println("Indique los siguientes datos del cliente que desea eliminar:");
+		System.out.println("<nombre>|<dni>");
+		String peticion = Escaner.leerS();
+		this.procesarBorrarCliente(peticion);
+	}
+	
+	public void mejorar() {
+		System.out.println("Indique los siguientes datos del cliente que desea mejorar:");
+		System.out.println("<nombre>|<dni>");
+		String peticion = Escaner.leerS();
+		this.procesarMejora(peticion);
+	}
+	
+	private void procesarMejora(String p) {
+		try {
+			String[] corte = p.split("|");
+			String nombre = corte[0];
+			String dni = corte[1];
+			Cliente c = this.buscarClientePorNombre(nombre);
+			if (this.existeCliente(nombre, dni)) {
+				ClientePremium cp = new ClientePremium();
+				cp = ClientePremium.mejorarAPremium(c, this.getBroker(), this);
+				System.out.println("Solicitud procesada correctamente.");
+			} else {
+				System.err.println("Error, el cliente no existía.");
+			}
+		} catch (Exception e) {
+			System.err.println("Error: la solicitud no se ha procesado.");
+			System.err.println("¿Desea volver a intentarlo? 0-SI, 1-NO");
+			int i = Escaner.leer();
+			if (i==0) {
+				this.mejorar();
+			}
+		}
+	}
+	
+	private void procesarBorrarCliente(String p) {
+		try {
+			String[] corte = p.split("|");
+			String nombre = corte[0];
+			String dni = corte[1];
+			Cliente c = this.buscarClientePorNombre(nombre);
+			if (this.existeCliente(nombre, dni)) {
+				this.eliminarCliente(c);
+				System.out.println("Solicitud procesada correctamente.");
+			} else {
+				System.err.println("Error, el cliente no existía.");
+			}
+		} catch (Exception e) {
+			System.err.println("Error: la solicitud no se ha procesado.");
+			System.err.println("¿Desea volver a intentarlo? 0-SI, 1-NO");
+			int i = Escaner.leer();
+			if (i==0) {
+				this.borrarCliente();
+			}
+		}
+	}
+
+	public void eliminarCliente (Cliente cliente) {
 		if (this.carteraClientes.contains(cliente)) {
 			this.carteraClientes.remove(cliente);
 		}
@@ -62,27 +121,26 @@ public class Banco {
 		}
 	}
 
-	public void RealizarCopiaDeSeguridad(){
+	public void realizarCopiaDeSeguridad(){
 		//Realizar copia de seguridad de los clientes del banco en disco, es decir, de TODO el OBJETO "Banco".
 		System.err.println("Completar método");
 	}
 
-	public void RestaurarCopiaDeSeguridad(){
+	public void restaurarCopiaDeSeguridad(){
 		//Restaurar copia de seguridad.
 		System.err.println("Completar método");
 	}
 
 	public Cliente buscarClientePorNombre(String nomCli) {
-    	//revisar método
 		Cliente cli=null;
-		ArrayList<Cliente> listaClientes = this.getCarteraClientes();
-		for (Cliente cliente : listaClientes) {
+		for (Cliente cliente : this.getCarteraClientes()) {
 			if ( nomCli.equals(cliente.getNombre()) ) {
 				cli = cliente;	
 			}
 		}
 		return cli;
 	}
+	
 	public Cliente buscarCliente(Cliente cli) {
 		Cliente c = new Cliente();
 		if (this.carteraClientes.contains(cli)) {
@@ -117,5 +175,47 @@ public class Banco {
 			return false;
 		return true;
 	}
+	
+	public void mostrarDatos () {
+		System.out.println("Nombre : " + this.getNombre());
+		this.mostrarClientes();
+	}
 
+	public void anadirCliente() {
+		System.out.println("Indique los datos del nuevo cliente con el siguiente formato:");
+		System.out.println("<nombre>|<dni>|<saldo>");
+		String peticion = Escaner.leerS();
+		this.procesarAltaCliente(peticion);
+	}
+
+	private void procesarAltaCliente(String p) {
+		try {
+			String[] corte = p.split("|");
+			String nombre = corte[0];
+			String dni = corte[1];
+			double saldo = Double.parseDouble(corte[2]);
+			Cliente c = new Cliente(nombre, dni, saldo);
+			if (this.existeCliente(nombre, dni)) {
+				System.err.println("Error, el cliente ya existe.");
+			} else {
+				this.nuevoCliente(c);
+			}
+		} catch (Exception e) {
+			System.err.println("Error: la solicitud no se ha procesado.");
+			System.err.println("¿Desea volver a intentarlo? 0-SI, 1-NO");
+			int i = Escaner.leer();
+			if (i==0) {
+				this.anadirCliente();
+			}
+		}
+	}
+
+	private boolean existeCliente(String nombre, String dni) {
+		Cliente cli = this.buscarClientePorNombre(nombre);
+		if (cli.getDni().equals(dni)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

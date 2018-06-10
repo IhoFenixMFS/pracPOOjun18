@@ -14,11 +14,11 @@ public class MensajeCompra extends Mensaje{
 		System.err.println("Completar método");
 	}
 
-	public static void compraAcciones (BolsaDeValores bolsa, Banco banco){
+	public static String compraAcciones (BolsaDeValores bolsa, Banco banco){
 		System.out.println("Ha seleccionado Comprar acciones.");
 		System.out.println("Debe indicar la compra con el siguiente formato:");
 		System.out.println("<id peticion>|<nombre cliente>|<nombre empresa>|<importe a invertir>");
 		String compra=Escaner.leerS();
-		Utilidades.almacenarSolicitud(bolsa, banco, compra);
+		return compra;
 	}
 }

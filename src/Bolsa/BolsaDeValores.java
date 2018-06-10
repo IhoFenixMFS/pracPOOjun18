@@ -3,7 +3,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Banco.Banco;
+import Banco.Cliente;
 import Bolsa.Empresa;
+import General.Escaner;
+import General.Utilidades;
+import Mensajes.MensajeActualizacion;
 
 public class BolsaDeValores {
 	/*
@@ -11,29 +15,6 @@ public class BolsaDeValores {
 	 */
 	private String nombre;
 	private ArrayList<Empresa> listaEmpresas;
-	
-	/*
-	private static BolsaDeValores bolsaUnica;
-	private BolsaDeValores() {
-		super();
-		this.nombre = "Bolsa";
-		this.listaEmpresas = new ArrayList<Empresa>();
-	}
-	
-	public static void iniciarBolsaDeValores() {
-		bolsaUnica = new BolsaDeValores();
-	}
-	
-	public static BolsaDeValores getBolsaDeValores() {
-		if(bolsaUnica == null) {
-			System.err.println("La instancia a la que desea acceder se ha corrompido.");
-			return null;
-		}
-		else {
-			return bolsaUnica;
-		}
-	}
-	*/
 
 	public String getNombre() {
 		return nombre;
@@ -57,45 +38,38 @@ public class BolsaDeValores {
 		this.listaEmpresas = listaEmpresas;
 	}
 	
-	public void nuevaEmpresa (BolsaDeValores bolsa, Banco banco, Empresa empresa) {
-		bolsa.listaEmpresas.add(empresa);	
+	public void nuevaEmpresa (Empresa empresa) {
+		this.listaEmpresas.add(empresa);	
 	}
 
-	public void borrarEmpresa (BolsaDeValores bolsa, Banco banco, Empresa empresa) {
-		Iterator<Empresa> emp = this.getListaEmpresas().iterator();
-		while (emp.hasNext()) {
-			if (emp.equals(empresa)) {
-				bolsa.getListaEmpresas().remove(emp);
-			}
+	public void borrarEmpresa (Empresa empresa) {
+		if (this.listaEmpresas.contains(empresa)) {
+			this.listaEmpresas.remove(empresa);
 		}
 	}
 	
 	public void mostrarEmpresas(){
 		byte indice=1;
-		ArrayList<Empresa> listaEmpresas = this.getListaEmpresas();
-		for (Empresa empresa : listaEmpresas) {
+		for (Empresa empresa : this.getListaEmpresas()) {
 			System.out.println(indice + ")");
 			empresa.mostrarEstado();
 			indice++;
 		}
 	}
 
-	public void RealizarCopiaDeSeguridad(BolsaDeValores bolsa, Banco banco){
+	public void realizarCopiaDeSeguridad(){
 		//Realizar copia de seguridad del estado de la bolsa en disco, es decir, de TODO el OBJETO "Bolsa".
 		System.err.println("Completar método");
 	}
 
-	public void RestaurarCopiaDeSeguridad(BolsaDeValores bolsa, Banco banco){
+	public void restaurarCopiaDeSeguridad(){
 		//Restaurar copia de seguridad.
 		System.err.println("Completar método");
 	}
 
 	public Empresa buscarEmpresaPorNombre(String nomEmp) {
-		//revisar método
-		Empresa emp=null;
-		
-		ArrayList<Empresa> listaEmpresas = this.getListaEmpresas();
-		for (Empresa empresa : listaEmpresas) {
+		Empresa emp=null; 
+		for (Empresa empresa : this.getListaEmpresas()) {
 			if ( nomEmp.equals(empresa.getNombre()) ) {
 				emp = empresa;
 			}
@@ -104,10 +78,97 @@ public class BolsaDeValores {
 		return emp;
 	}
 
-	public void ActualizarValores() {
-		// TODO Auto-generated method stub
-		System.err.println("implementar");
+	public void actualizarValores() {
+		int incremento = Utilidades.numAleatInt(0,100);
+		MensajeActualizacion.actualizarValores();
+		for (Empresa empresa : this.getListaEmpresas()) {
+			empresa.actualizarV(incremento);
+
+		}
 		
+	}
+
+	public void mostrarEstado() {
+		System.out.println("Nombre: " + this.getNombre());
+		this.mostrarEmpresas();
+	}
+
+	public Empresa mejorEmpresa() {
+		Empresa mejor= null;
+		double vAcc=0;
+		for (Empresa empresa : this.listaEmpresas) {
+			if (empresa.getValorAcciones()<vAcc) {
+				vAcc=empresa.getValorAcciones();
+				mejor=empresa;
+			}
+		}
+		return mejor;
+	}
+	
+	public void borrarEmpresa() {
+		System.out.println("Indique el nombre de la empresa que desea eliminar:");
+		System.out.println("<nombre>");
+		String peticion = Escaner.leerS();
+		this.procesarBorrarEmpresa(peticion);
+	}
+
+	private void procesarBorrarEmpresa(String nombre) {
+		try {
+			Empresa e = this.buscarEmpresaPorNombre(nombre);
+			if (this.existeEmpresa(nombre)) {
+				this.borrarEmpresa(e);
+				System.out.println("Solicitud procesada correctamente.");
+			} else {
+				System.err.println("Error, el cliente no existía.");
+			}
+		} catch (Exception e) {
+			System.err.println("Error: la solicitud no se ha procesado.");
+			System.err.println("¿Desea volver a intentarlo? 0-SI, 1-NO");
+			int i = Escaner.leer();
+			if (i==0) {
+				this.borrarEmpresa();
+			}
+		}
+		
+	}
+
+	private boolean existeEmpresa(String nombre) {
+		Empresa emp = this.buscarEmpresaPorNombre(nombre);
+		if (emp!=null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public void nuevaEmp() {
+		System.out.println("Indique los datos de la nueva empresa con el siguiente formato:");
+		System.out.println("<nombre>|<valor acciones>");
+		String peticion = Escaner.leerS();
+		this.procesarAltaEmpresa(peticion);
+		
+	}
+	
+	private void procesarAltaEmpresa(String p) {
+		try {
+			String[] corte = p.split("|");
+			String nombre = corte[0];
+			double valAcciones = Double.parseDouble(corte[1]);
+			Empresa e = new Empresa(nombre, valAcciones);
+			if (this.existeEmpresa(nombre)) {
+				System.err.println("Error, la empresa ya existe.");
+			} else {
+				this.nuevaEmpresa(e);
+			}
+		} catch (Exception e) {
+			System.err.println("Error: la solicitud no se ha procesado.");
+			System.err.println("¿Desea volver a intentarlo? 0-SI, 1-NO");
+			int i = Escaner.leer();
+			if (i==0) {
+				this.nuevaEmp();
+			}
+		}
 	}
 
 }

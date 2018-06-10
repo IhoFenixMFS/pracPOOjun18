@@ -120,6 +120,7 @@ public class Cliente extends Persona{
     }
 
 	public void clone(Cliente cliente3) {
+		//super.clone();
 		this.saldo = cliente3.saldo;
 		
 		

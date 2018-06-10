@@ -21,42 +21,18 @@ public class AgenteDeInversiones extends Persona{
 	
 	public AgenteDeInversiones(String nombre, String dni) {
 		super(nombre, dni);
-		// TODO Auto-generated constructor stub
 	}
 
-	public static void procesarSolicitudBroker(BolsaDeValores bolsa, Banco banco,Integer opc) {
-		// TODO Auto-generated method stub
-		switch (opc) {
-		case 0:
-			ComprarAccion(bolsa, banco);
-			break;
-		case 1:
-			VenderAccion(bolsa, banco);
-			break;
-		case 2:
-			bolsa.ActualizarValores();
-			break;
-
-		default:
-			System.out.println("No se ha podido procesar la solicitud.");
-		}
-	}
-
-	public static void ComprarAccion(BolsaDeValores bolsa, Banco banco) {
+	public static void solicitarComprarAccion(BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Comprar acción. . .");
 		MensajeCompra.compraAcciones(bolsa, banco);
 	}
 	
-	public static void VenderAccion(BolsaDeValores bolsa, Banco banco) {
+	public static void solicitarVenderAccion(BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Vender acción. . .");
-		MensajeVenta.ventaAcciones(bolsa, banco);
+		
 	}
 
-	public static void ActualizarBolsa(BolsaDeValores bolsa){
-		System.out.println("Actualizar valores. . .");
-		bolsa.ActualizarValores();
-	}
-	
 	public static void procesarSolicitudCompra(BolsaDeValores bolsa, Banco banco, String solicitud) {
 		try {
 			String[] corte = solicitud.split("|");
@@ -87,10 +63,9 @@ public class AgenteDeInversiones extends Persona{
 			int id = Integer.parseInt(parte1);
 			int acciones = Integer.parseInt(parte4);
 			
-			realizarPeticionCompra(bolsa, banco, id, nomCli, nomEmp, acciones);
+			realizarPeticionVenta(bolsa, banco, id, nomCli, nomEmp, acciones);
 	    	
 		}  catch (Exception e) {
-			// TODO: handle exception
 			MensajeRespuestaCompra.errorCompraAcciones();
 		}
 	}
@@ -110,11 +85,14 @@ public class AgenteDeInversiones extends Persona{
 		
 		//buscar entre todos los clientes del banco el elegido.
 		Cliente cli = banco.buscarClientePorNombre(nomCli);
-			//revisar
-		//Se acctualica la cartera de valores del cliente
-		cli.actualizarValoresCliente(invertido, numAcciones, empresa);
-		
-		MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+			if (cli.equals(null)) {
+				System.err.println("El cliente no existe.");
+			} else {
+				//Se acctualica la cartera de valores del cliente
+				cli.actualizarValoresCliente(invertido, numAcciones, empresa);
+				
+				MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+			}
 	}
 
 	private static void realizarPeticionVenta(BolsaDeValores bolsa, Banco banco, int id, String nomCli, String nomEmp, int acciones) throws Exception{
@@ -128,14 +106,17 @@ public class AgenteDeInversiones extends Persona{
 		
 		//buscar entre todos los clientes del banco el elegido.
 		Cliente cli = banco.buscarClientePorNombre(nomCli);
-			//revisar
-		//Se acctualica la cartera de valores del cliente.
-		cli.actualizarValoresCliente(beneficio, acciones, empresa);
-		
-		//recibimmos el saldo tras la venta.
-		double saldoFinal = cli.getSaldo();
-
-		MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
+		if (cli.equals(null)) {
+			System.err.println("El cliente no existe.");
+		} else {
+			//Se acctualica la cartera de valores del cliente.
+			cli.actualizarValoresCliente(beneficio, acciones, empresa);
+			
+			//recibimmos el saldo tras la venta.
+			double saldoFinal = cli.getSaldo();
+	
+			MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
+		}
 	}
 
 }

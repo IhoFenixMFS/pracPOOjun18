@@ -1,5 +1,7 @@
 package Bolsa;
 
+import Mensajes.MensajeRespuestaActualizacion;
+
 public class Empresa {
 	/*
 	 * Mantiene la información de las acciones: valor, valor anterior e incremento.
@@ -41,12 +43,27 @@ public class Empresa {
 		this.valorPrevio = valorPrevio;
 		this.incremento = incremento;
 	}
+	
+	public Empresa(String nombre, double valorAcciones) {
+		super();
+		this.nombre = nombre;
+		this.valorAcciones = valorAcciones;
+		this.valorPrevio = 0;
+		this.incremento = 0;
+	}
 
 	public void mostrarEstado(){
     	System.out.println("Estado de la empresa " + this.getNombre());
     	System.out.println("   Valor actual: " + this.getValorAcciones());
     	System.out.println("   Variación: " + this.getIncremento());
 		System.out.println("----------------------------------------------");
+	}
+	public void actualizarV(int incremento) {
+		this.setValorPrevio(this.getValorAcciones());
+		this.setIncremento(incremento/100);
+		this.setValorAcciones(this.getValorAcciones()*this.getIncremento());
+		MensajeRespuestaActualizacion.actualizandoEmpresa(incremento, this.getNombre());
+		
 	}
 	
 }

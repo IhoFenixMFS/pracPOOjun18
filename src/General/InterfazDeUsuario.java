@@ -2,6 +2,10 @@ package General;
 import Banco.AgenteDeInversiones;
 import Banco.Banco;
 import Bolsa.BolsaDeValores;
+import Mensajes.MensajeActualizacion;
+import Mensajes.MensajeCompra;
+import Mensajes.MensajeVenta;
+import Banco.GestorDeInversiones;
 
 public class InterfazDeUsuario {
 
@@ -42,85 +46,99 @@ public class InterfazDeUsuario {
 				break;
 		  	case 1:	
 		  		System.out.println("Imprimir el estado de los clientes");
-
+		  		banco.mostrarDatos();
 				System.out.println("----------------------------------------------");
 				break;
 			case 2:
 				System.out.println("Imprimir el estado de la bolsa");
+				bolsa.mostrarEstado();
 				System.out.println("----------------------------------------------");
 				break;
 			case 3:
 				System.out.println("Añade un cliente");
+				banco.anadirCliente();
 				System.out.println("----------------------------------------------");
 				break;
 			case 4:
 				System.out.println("Elimina un cliente");
+				banco.borrarCliente();
 				System.out.println("----------------------------------------------");
 				break;
 			case 5:
 				System.out.println("Realizar copia de seguridad del banco");
+				banco.realizarCopiaDeSeguridad();
 				System.out.println("----------------------------------------------");
 				break;
 			case 6:
 				System.out.println("Restaurar copia de seguridad del banco");
+				banco.restaurarCopiaDeSeguridad();
 				System.out.println("----------------------------------------------");
 				break;
 			case 7:
 				System.out.println("Mejorar categoría de un cliente a premium");
+				banco.mejorar();
 				System.out.println("----------------------------------------------");
 				break;
 			case 8:
 				System.out.println("Solicitar recomendación de inversión");
+				banco.getBroker().realizarRecomendacion(bolsa,banco);
 				System.out.println("----------------------------------------------");
 				break;
 			case 9:
 				System.out.println("Añadir una nueva empresa");
+				bolsa.nuevaEmp();
 				System.out.println("----------------------------------------------");
 				break;
 			case 10:
 				System.out.println("Eliminar una empresa");
+				bolsa.borrarEmpresa();
 				System.out.println("----------------------------------------------");
 				break;
 			case 11:
 				System.out.println("Actualizar valores");
-				AgenteDeInversiones.procesarSolicitudBroker(bolsa, banco, 2);
+				bolsa.actualizarValores();
 				System.out.println("----------------------------------------------");
 				break;
 			case 12:
 				System.out.println("Realizar copia de seguridad de la bolsa");
+				bolsa.realizarCopiaDeSeguridad();
 				System.out.println("----------------------------------------------");
 				break;
 			case 13:
 				System.out.println("Restaurar copia de seguridad de la bolsa");
+				bolsa.restaurarCopiaDeSeguridad();
 				System.out.println("----------------------------------------------");
 				break;
 			case 14:
 				System.out.println("Realizar solicitud de compra de acciones");
-				AgenteDeInversiones.procesarSolicitudBroker(bolsa, banco, 0);
+				MensajeCompra.almacenarSolicitud(bolsa,banco);
 				System.err.println("Revisr fallo de lectura de peticion");
 				System.out.println("----------------------------------------------");
 				break;
 			case 15:
 				System.out.println("Realizar solicitud de venta de acciones");
-				AgenteDeInversiones.procesarSolicitudBroker(bolsa, banco, 1);
+				MensajeVenta.almacenarSolicitud(bolsa, banco);
 				System.err.println("Revisr fallo de lectura de peticion");
 				System.out.println("----------------------------------------------");
 				break;
 			case 16:
 				System.out.println("Realizar solicitud de actualización de valores");
-				//MensajeActualizacion.RealizarPeticion();
+				bolsa.actualizarValores();
 				System.out.println("----------------------------------------------");
 				break;
 			case 17:
 				System.out.println("Imprimir operaciones pendientes de llevar a cabo");
+				banco.getBroker().mostrarTodas();
 				System.out.println("----------------------------------------------");
 				break;
 			case 18:
 				System.out.println("Ejecutar operaciones pendientes");
+				banco.getBroker().procesarTodas(bolsa, banco);
 				System.out.println("----------------------------------------------");
 				break;
 			default:
 				System.out.println("Seleccione una opción válida por favor");
+				
 				System.out.println("----------------------------------------------");
 				break;
 		}
