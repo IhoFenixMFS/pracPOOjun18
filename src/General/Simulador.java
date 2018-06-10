@@ -21,13 +21,10 @@ public class Simulador {
 	Cliente cliente1;
 	Cliente cliente2;
 	Cliente cliente3;
-	Cliente cliente4;
-	Cliente cliente5;
 
 	ArrayList <PaqueteDeAcciones> cartera1 = new ArrayList<PaqueteDeAcciones>();
 	ArrayList <PaqueteDeAcciones> cartera2 = new ArrayList<PaqueteDeAcciones>();
 	ArrayList <PaqueteDeAcciones> cartera3 = new ArrayList<PaqueteDeAcciones>();
-	ArrayList <PaqueteDeAcciones> cartera4 = new ArrayList<PaqueteDeAcciones>();
 	
 	Empresa empresa1;
 	Empresa empresa2;
@@ -58,15 +55,14 @@ public class Simulador {
 	//Asignar valores a los clientes
 		cliente1 = new Cliente("Cliente1", "00000000A", 1500);
 		cliente2 = new Cliente("Cliente2", "11111111B", 12500, cartera2);
-		cliente3 = new ClientePremium("Cliente3", "22222222C", 123500, broker, cartera1);
-		cliente4 = new Cliente("Cliente4", "33333333D", 0);
-		cliente5.clone(cliente3);
-		cliente5.setCarteraDeAcciones(cartera3);
+		cliente3 = new Cliente();
+		cliente3.clone(cliente2);
+		cliente3.setCarteraDeAcciones(cartera3);
 		
 
 	}
 	
-	private void CrearBase() {
+	private void CrearBasePruebas() {
 		ArrayList<Empresa>listaEmp= new ArrayList<Empresa>();
 		listaEmp.add(empresa1);
 		listaEmp.add(empresa2);
@@ -77,8 +73,7 @@ public class Simulador {
 		listaCli.add(cliente1);
 		listaCli.add(cliente2);
 		listaCli.add(cliente3);
-		listaCli.add(cliente4);
-		listaCli.add(cliente5);
+
 		banco = new Banco("Banco", broker, listaCli);
 		
 	}
@@ -86,8 +81,8 @@ public class Simulador {
 	public void simular() {
 		Integer teclado;		
 		try {
-			CrearBase();
 			CrearObjetosDePruebas();
+			CrearBasePruebas();
 			do {
 
 				InterfazDeUsuario.menu();

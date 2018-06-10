@@ -30,6 +30,11 @@ public class Persona {
     }
 
 
+	public Persona() {
+		
+	}
+
+
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

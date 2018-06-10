@@ -49,18 +49,14 @@ public class Banco {
 	}
 	
 	public void borrarCliente (Cliente cliente) {
-		Iterator<Cliente> cli = this.carteraClientes.iterator();
-		while (cli.hasNext()) {
-			if (cli.equals(cliente)) {
-				this.carteraClientes.remove(cli);
-			}
+		if (this.carteraClientes.contains(cliente)) {
+			this.carteraClientes.remove(cliente);
 		}
 	}
 
 	public void mostrarClientes () {
-		Iterator<Cliente> cli = this.carteraClientes.iterator();
 		byte indice=1;
-		for (Cliente cliente : carteraClientes) {
+		for (Cliente cliente : this.carteraClientes) {
 			System.out.println(indice + ")");
 			cliente.mostarDatos('b');
 		}
@@ -76,16 +72,24 @@ public class Banco {
 		System.err.println("Completar método");
 	}
 
-	public static Cliente buscarClientePorNombre(String nomCli) {
+	public Cliente buscarClientePorNombre(String nomCli) {
     	//revisar método
 		Cliente cli=null;
-		ArrayList<Cliente> listaClientes = null/*this.getCarteraCLientes()*/;
+		ArrayList<Cliente> listaClientes = this.getCarteraClientes();
 		for (Cliente cliente : listaClientes) {
 			if ( nomCli.equals(cliente.getNombre()) ) {
 				cli = cliente;	
 			}
 		}
 		return cli;
+	}
+	public Cliente buscarCliente(Cliente cli) {
+		Cliente c = new Cliente();
+		if (this.carteraClientes.contains(cli)) {
+			int i = this.carteraClientes.indexOf(cli);
+			c = this.carteraClientes.get(i);
+		}
+		return c;
 	}
 
 	public boolean equals(Object obj) {

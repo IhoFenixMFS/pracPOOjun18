@@ -40,7 +40,11 @@ public class Cliente extends Persona{
         this.saldo = saldo;
     }
 
-    public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
+    public Cliente() {
+		super();
+	}
+
+	public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
     	if (carteraDeAcciones.isEmpty()) {
     		System.out.println("El cliente aún no posee cartera de acciones.");
     	} else {
@@ -72,7 +76,10 @@ public class Cliente extends Persona{
     			System.out.println("   Valor paquete: " + totalP);
     		break;
     		default:
-    			mostrarAcciones(this.getCarteraDeAcciones());
+    			for (PaqueteDeAcciones acc: this.carteraDeAcciones) {
+    				acc.mostrarDatos();
+    			}
+    			
     	}
 		System.out.println("----------------------------------------------");
     }
@@ -135,7 +142,6 @@ public class Cliente extends Persona{
 			return false;
 		return true;
 	}
-
 
 }
 

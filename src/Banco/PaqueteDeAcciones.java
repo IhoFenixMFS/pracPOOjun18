@@ -1,32 +1,6 @@
 package Banco;
 
 public class PaqueteDeAcciones {
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PaqueteDeAcciones other = (PaqueteDeAcciones) obj;
-		if (nombreEmpresa == null) {
-			if (other.nombreEmpresa != null)
-				return false;
-		} else if (!nombreEmpresa.equals(other.nombreEmpresa))
-			return false;
-		if (numTitulos == null) {
-			if (other.numTitulos != null)
-				return false;
-		} else if (!numTitulos.equals(other.numTitulos))
-			return false;
-		if (Double.doubleToLongBits(totalPaquete) != Double.doubleToLongBits(other.totalPaquete))
-			return false;
-		if (Double.doubleToLongBits(valorTitulo) != Double.doubleToLongBits(other.valorTitulo))
-			return false;
-		return true;
-	}
-
 	/*
 	 * Incluye el nombre de la empresa, el número de títulos que posee el cliente
 	 * y el precio total del paquete. También, opcionalmente,
@@ -90,7 +64,6 @@ public class PaqueteDeAcciones {
     }
 	
 	public PaqueteDeAcciones(String nombreEmpresa, Integer numTitulos, double valorTitulo) {
-		//super();
 		this.nombreEmpresa = nombreEmpresa;
 		this.numTitulos = numTitulos;
 		this.valorTitulo = valorTitulo;
@@ -107,4 +80,30 @@ public class PaqueteDeAcciones {
 	public PaqueteDeAcciones clone() {
 		return new PaqueteDeAcciones(this.nombreEmpresa,this.numTitulos, this.valorTitulo);
 	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PaqueteDeAcciones other = (PaqueteDeAcciones) obj;
+		if (nombreEmpresa == null) {
+			if (other.nombreEmpresa != null)
+				return false;
+		} else if (!nombreEmpresa.equals(other.nombreEmpresa))
+			return false;
+		if (numTitulos == null) {
+			if (other.numTitulos != null)
+				return false;
+		} else if (!numTitulos.equals(other.numTitulos))
+			return false;
+		if (Double.doubleToLongBits(totalPaquete) != Double.doubleToLongBits(other.totalPaquete))
+			return false;
+		if (Double.doubleToLongBits(valorTitulo) != Double.doubleToLongBits(other.valorTitulo))
+			return false;
+		return true;
+	}
+
 }
