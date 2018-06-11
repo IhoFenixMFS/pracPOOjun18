@@ -43,6 +43,13 @@ public class GestorDeInversiones extends Persona {
 		this.peticionesV = new ArrayList<String>();
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "GestorDeInversiones [peticionesC=" + peticionesC + ", peticionesA=" + peticionesA + ", peticionesV="
+				+ peticionesV + ", nombre=" + nombre + ", dni=" + dni + "]";
+	}
+
 	public String realizarRecomendacion(BolsaDeValores bolsa, Banco banco) {
 		System.out.println("Estas son las empresas disponibles: ");
 		Empresa emp = bolsa.mejorEmpresa();

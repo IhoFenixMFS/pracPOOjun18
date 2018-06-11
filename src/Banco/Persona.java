@@ -33,6 +33,12 @@ public class Persona {
 	public Persona() {
 		
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Persona [nombre=" + nombre + ", dni=" + dni + "]";
+	}
 
 
 	public boolean equals(Object obj) {

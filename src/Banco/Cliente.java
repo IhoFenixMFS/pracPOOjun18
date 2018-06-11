@@ -44,6 +44,12 @@ public class Cliente extends Persona{
 		super();
 	}
 
+    
+	@Override
+	public String toString() {
+		return "Cliente [saldo=" + saldo + ", carteraDeAcciones=" + carteraDeAcciones + "]";
+	}
+
 	public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
     	if (carteraDeAcciones.isEmpty()) {
     		System.out.println("El cliente aún no posee cartera de acciones.");

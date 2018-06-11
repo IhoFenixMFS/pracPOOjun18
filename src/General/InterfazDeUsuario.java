@@ -111,14 +111,12 @@ public class InterfazDeUsuario {
 				break;
 			case 14:
 				System.out.println("Realizar solicitud de compra de acciones");
-				MensajeCompra.almacenarSolicitud(bolsa,banco);
-				System.err.println("Revisr fallo de lectura de peticion");
+				banco.getBroker().almacenarCompra(bolsa, banco);
 				System.out.println("----------------------------------------------");
 				break;
 			case 15:
 				System.out.println("Realizar solicitud de venta de acciones");
-				MensajeVenta.almacenarSolicitud(bolsa, banco);
-				System.err.println("Revisr fallo de lectura de peticion");
+				banco.getBroker().almacenarVenta(bolsa, banco);
 				System.out.println("----------------------------------------------");
 				break;
 			case 16:

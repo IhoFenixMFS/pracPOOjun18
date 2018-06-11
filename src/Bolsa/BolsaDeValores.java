@@ -1,4 +1,8 @@
 package Bolsa;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -57,14 +61,33 @@ public class BolsaDeValores {
 		}
 	}
 
-	public void realizarCopiaDeSeguridad(){
-		//Realizar copia de seguridad del estado de la bolsa en disco, es decir, de TODO el OBJETO "Bolsa".
-		System.err.println("Completar método");
+	
+	@Override
+	public String toString() {
+		return "BolsaDeValores [nombre=" + nombre + ", listaEmpresas=" + listaEmpresas + "]";
 	}
 
-	public void restaurarCopiaDeSeguridad(){
-		//Restaurar copia de seguridad.
-		System.err.println("Completar método");
+	public void realizarCopiaDeSeguridad(){
+		try {
+			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("bolsa.dat") );
+	            escribiendoFichero.writeObject(this.toString());
+	            escribiendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+	}
+
+	public BolsaDeValores restaurarCopiaDeSeguridad(){
+		BolsaDeValores b = this;
+		try {
+			ObjectInputStream leyendoFichero = new ObjectInputStream( 
+            new FileInputStream("objetos.dat") );
+            b = ( BolsaDeValores )leyendoFichero.readObject();
+            leyendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+		return b;
 	}
 
 	public Empresa buscarEmpresaPorNombre(String nomEmp) {

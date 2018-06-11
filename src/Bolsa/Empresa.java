@@ -52,6 +52,11 @@ public class Empresa {
 		this.incremento = 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Empresa [nombre=" + nombre + ", valorAcciones=" + valorAcciones + ", valorPrevio=" + valorPrevio
+				+ ", incremento=" + incremento + "]";
+	}
 	public void mostrarEstado(){
     	System.out.println("Estado de la empresa " + this.getNombre());
     	System.out.println("   Valor actual: " + this.getValorAcciones());

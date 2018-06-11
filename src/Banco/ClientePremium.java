@@ -36,6 +36,13 @@ public class ClientePremium extends Cliente {
 		super();
 	}
 
+	
+	@Override
+	public String toString() {
+		return "ClientePremium [broker=" + broker + ", saldo=" + saldo + ", carteraDeAcciones=" + carteraDeAcciones
+				+ ", nombre=" + nombre + ", dni=" + dni + "]";
+	}
+
 	public static ClientePremium mejorarAPremium (Cliente c,GestorDeInversiones b, Banco ba) {
 		ClientePremium p = new ClientePremium(c,b);
 				ba.eliminarCliente(c);

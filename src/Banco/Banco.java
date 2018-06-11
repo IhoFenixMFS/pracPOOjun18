@@ -1,4 +1,8 @@
 package Banco;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -118,17 +122,36 @@ public class Banco {
 		for (Cliente cliente : this.carteraClientes) {
 			System.out.println(indice + ")");
 			cliente.mostarDatos('b');
+			indice++;
 		}
 	}
 
-	public void realizarCopiaDeSeguridad(){
-		//Realizar copia de seguridad de los clientes del banco en disco, es decir, de TODO el OBJETO "Banco".
-		System.err.println("Completar método");
+	@Override
+	public String toString() {
+		return "Banco [nombre=" + nombre + ", broker=" + broker + ", carteraClientes=" + carteraClientes + "]";
 	}
 
-	public void restaurarCopiaDeSeguridad(){
-		//Restaurar copia de seguridad.
-		System.err.println("Completar método");
+	public void realizarCopiaDeSeguridad(){
+		try {
+			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("banco.dat") );
+	            escribiendoFichero.writeObject(this.toString());
+	            escribiendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+	}
+
+	public Banco restaurarCopiaDeSeguridad(){
+		Banco b = this;
+		try {
+			ObjectInputStream leyendoFichero = new ObjectInputStream( 
+            new FileInputStream("objetos.dat") );
+            b = ( Banco )leyendoFichero.readObject();
+            leyendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+		return b;
 	}
 
 	public Cliente buscarClientePorNombre(String nomCli) {

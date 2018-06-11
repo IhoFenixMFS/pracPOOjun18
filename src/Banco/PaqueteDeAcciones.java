@@ -55,6 +55,13 @@ public class PaqueteDeAcciones {
 	public void setTotalPaquete(Integer numTitulos, double valorTitulo) {
 		this.totalPaquete = numTitulos * valorTitulo;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "PaqueteDeAcciones [nombreEmpresa=" + nombreEmpresa + ", numTitulos=" + numTitulos + ", valorTitulo="
+				+ valorTitulo + ", totalPaquete=" + totalPaquete + "]";
+	}
 
 	public void mostrarDatos() {
 		System.out.println( "   Nombre de la empresa: " + this.getNombreEmpresa());
