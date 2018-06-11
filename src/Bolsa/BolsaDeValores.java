@@ -22,22 +22,18 @@ public class BolsaDeValores {
 
 	public String getNombre() {
 		return nombre;
-		/**/
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-		/**/
 	}
 
 	public  ArrayList<Empresa> getListaEmpresas() {
 		return listaEmpresas;
-		/**/
 	}
 
 	public void setListaEmpresas(ArrayList<Empresa> listaEmpresas) {
 		this.listaEmpresas = listaEmpresas;
-		/**/
 	}
 
 	public BolsaDeValores(String nombre, ArrayList<Empresa> listaEmpresas) {
@@ -49,13 +45,11 @@ public class BolsaDeValores {
 	@Override
 	public String toString() {
 		return "BolsaDeValores [nombre=" + nombre + ", listaEmpresas=" + listaEmpresas + "]";
-		/**/
 	}
 
 
 	public void nuevaEmpresa (Empresa empresa) {
 		this.listaEmpresas.add(empresa);
-		/**/
 	}
 
 	public void borrarEmpresa (Empresa empresa) {
@@ -76,7 +70,7 @@ public class BolsaDeValores {
 	public Empresa buscarEmpresaPorNombre(String nomEmp) {
 		Empresa emp=null; 
 		for (Empresa empresa : this.getListaEmpresas()) {
-			if ( nomEmp.equals(empresa.getNombre()) ) {
+			if ( nomEmp==empresa.getNombre() ) {
 				emp = empresa;
 			}
 		}
@@ -85,9 +79,10 @@ public class BolsaDeValores {
 	}
 
 	public void actualizarValores() {
-		int incremento = Utilidades.numAleatInt(0,100);
 		MensajeActualizacion.actualizarValores();
+		int incremento;
 		for (Empresa empresa : this.getListaEmpresas()) {
+			incremento = Utilidades.numAleatInt(0,100);
 			empresa.actualizarV(incremento);
 
 		}	
@@ -154,11 +149,11 @@ public class BolsaDeValores {
 	
 	private void procesarAltaEmpresa(String p) {
 		try {
-			String[] corte = p.split("|");
+			String[] corte = p.split("\\|");
 			String nombre = corte[0];
 			double valAcciones = Double.parseDouble(corte[1]);
 			Empresa e = new Empresa(nombre, valAcciones);
-			if (this.existeEmpresa(nombre)) {
+			if (this.getListaEmpresas().contains(e)) {
 				System.err.println("Error, la empresa ya existe.");
 			} else {
 				this.nuevaEmpresa(e);

@@ -16,7 +16,7 @@ public class Utilidades {
 	
 	/*Generamos un número aleatorio entero*/
 	public static int numAleatInt (Integer dsd, Integer hst) {
-		int num = (int)(numAleatInt(dsd, hst));
+		int num = (int)(numAleatt(dsd, hst));
 		if (positivo()) {
 			return num;
 		} else {

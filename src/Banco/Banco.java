@@ -169,7 +169,7 @@ public class Banco {
 	public Cliente buscarClientePorNombre(String nomCli) {
 		Cliente cli=null;
 		for (Cliente cliente : this.getCarteraClientes()) {
-			if ( nomCli.equals(cliente.getNombre()) ) {
+			if ( nomCli==cliente.getNombre() ) {
 				cli = cliente;	
 			}
 		}
@@ -199,12 +199,13 @@ public class Banco {
 
 	private void procesarAltaCliente(String p) {
 		try {
-			String[] corte = p.split("|");
+			String r = "\\|";
+			String[] corte = p.split(r);
 			String nombre = corte[0];
 			String dni = corte[1];
 			double saldo = Double.parseDouble(corte[2]);
 			Cliente c = new Cliente(nombre, dni, saldo);
-			if (this.existeCliente(nombre, dni)) {
+			if (this.getCarteraClientes().contains(c)) {
 				System.err.println("Error, el cliente ya existe.");
 			} else {
 				this.nuevoCliente(c);
@@ -221,6 +222,7 @@ public class Banco {
 
 	private boolean existeCliente(String nombre, String dni) {
 		Cliente cli = this.buscarClientePorNombre(nombre);
+		
 		if (cli.getDni().equals(dni)) {
 			return true;
 		} else {
