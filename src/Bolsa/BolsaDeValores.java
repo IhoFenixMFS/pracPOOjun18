@@ -15,13 +15,29 @@ import Mensajes.MensajeActualizacion;
 
 public class BolsaDeValores {
 	/*
-	 *  Gestiona la cotización de las acciones de las empresas y recibe solicitudes codificadas del bróker.
+	 *  Gestiona la cotización de las acciones de las empresas y recibe solicitudes
 	 */
 	private String nombre;
 	private ArrayList<Empresa> listaEmpresas;
 
 	public String getNombre() {
 		return nombre;
+		/**/
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+		/**/
+	}
+
+	public  ArrayList<Empresa> getListaEmpresas() {
+		return listaEmpresas;
+		/**/
+	}
+
+	public void setListaEmpresas(ArrayList<Empresa> listaEmpresas) {
+		this.listaEmpresas = listaEmpresas;
+		/**/
 	}
 
 	public BolsaDeValores(String nombre, ArrayList<Empresa> listaEmpresas) {
@@ -29,21 +45,17 @@ public class BolsaDeValores {
 		this.nombre = nombre;
 		this.listaEmpresas = listaEmpresas;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public  ArrayList<Empresa> getListaEmpresas() {
-		return listaEmpresas;
-	}
-
-	public void setListaEmpresas(ArrayList<Empresa> listaEmpresas) {
-		this.listaEmpresas = listaEmpresas;
-	}
 	
+	@Override
+	public String toString() {
+		return "BolsaDeValores [nombre=" + nombre + ", listaEmpresas=" + listaEmpresas + "]";
+		/**/
+	}
+
+
 	public void nuevaEmpresa (Empresa empresa) {
-		this.listaEmpresas.add(empresa);	
+		this.listaEmpresas.add(empresa);
+		/**/
 	}
 
 	public void borrarEmpresa (Empresa empresa) {
@@ -59,35 +71,6 @@ public class BolsaDeValores {
 			empresa.mostrarEstado();
 			indice++;
 		}
-	}
-
-	
-	@Override
-	public String toString() {
-		return "BolsaDeValores [nombre=" + nombre + ", listaEmpresas=" + listaEmpresas + "]";
-	}
-
-	public void realizarCopiaDeSeguridad(){
-		try {
-			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("bolsa.dat") );
-	            escribiendoFichero.writeObject(this.toString());
-	            escribiendoFichero.close();
-		} catch (Exception e) {
-			System.err.println("Se ha producido un error, disculpe las molestias.");
-		}
-	}
-
-	public BolsaDeValores restaurarCopiaDeSeguridad(){
-		BolsaDeValores b = this;
-		try {
-			ObjectInputStream leyendoFichero = new ObjectInputStream( 
-            new FileInputStream("objetos.dat") );
-            b = ( BolsaDeValores )leyendoFichero.readObject();
-            leyendoFichero.close();
-		} catch (Exception e) {
-			System.err.println("Se ha producido un error, disculpe las molestias.");
-		}
-		return b;
 	}
 
 	public Empresa buscarEmpresaPorNombre(String nomEmp) {
@@ -107,8 +90,7 @@ public class BolsaDeValores {
 		for (Empresa empresa : this.getListaEmpresas()) {
 			empresa.actualizarV(incremento);
 
-		}
-		
+		}	
 	}
 
 	public void mostrarEstado() {
@@ -152,7 +134,6 @@ public class BolsaDeValores {
 				this.borrarEmpresa();
 			}
 		}
-		
 	}
 
 	private boolean existeEmpresa(String nombre) {
@@ -164,13 +145,11 @@ public class BolsaDeValores {
 		}
 	}
 
-
 	public void nuevaEmp() {
 		System.out.println("Indique los datos de la nueva empresa con el siguiente formato:");
 		System.out.println("<nombre>|<valor acciones>");
 		String peticion = Escaner.leerS();
-		this.procesarAltaEmpresa(peticion);
-		
+		this.procesarAltaEmpresa(peticion);	
 	}
 	
 	private void procesarAltaEmpresa(String p) {
@@ -194,4 +173,26 @@ public class BolsaDeValores {
 		}
 	}
 
+	public void realizarCopiaDeSeguridad(){
+		try {
+			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("bolsa.dat") );
+	            escribiendoFichero.writeObject(this.toString());
+	            escribiendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+	}
+
+	public BolsaDeValores restaurarCopiaDeSeguridad(){
+		BolsaDeValores b = this;
+		try {
+			ObjectInputStream leyendoFichero = new ObjectInputStream( 
+            new FileInputStream("objetos.dat") );
+            b = ( BolsaDeValores )leyendoFichero.readObject();
+            leyendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+		return b;
+	}
 }

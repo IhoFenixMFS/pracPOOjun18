@@ -13,36 +13,44 @@ public class Banco {
 	/*
 	 * Gestiona los clientes y la relación entre estos y el bróker.
 	 */
+	
 	String nombre;
 	GestorDeInversiones broker;
 	ArrayList<Cliente> carteraClientes = new ArrayList<Cliente>();
 	
-	public String getNombre() {
+	public String getNombre(){
 		return nombre;
+		/**/
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+		/**/
 	}
 
 	public GestorDeInversiones getBroker() {
 		return broker;
+		/**/
 	}
 
 	public void setBroker(GestorDeInversiones broker) {
 		this.broker = broker;
+		/**/
 	}
 
 	public ArrayList<Cliente> getCarteraClientes() {
 		return carteraClientes;
+		/**/
 	}
 
 	public void setCarteraClientes(ArrayList<Cliente> carteraClientes) {
 		this.carteraClientes = carteraClientes;
+		/**/
 	}
 	
 	public void nuevoCliente (Cliente cliente) {
 		this.carteraClientes.add(cliente);	
+		/**/
 	}
 
 	public Banco(String nombre, GestorDeInversiones broker, ArrayList<Cliente> carteraClientes) {
@@ -50,6 +58,38 @@ public class Banco {
 		this.nombre = nombre;
 		this.broker = broker;
 		this.carteraClientes = carteraClientes;
+	}
+
+	@Override
+	public String toString() {
+		return "Banco [nombre=" + nombre + ", broker=" + broker + ", carteraClientes=" + carteraClientes + "]";
+		/**/
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Banco other = (Banco) obj;
+		if (broker == null) {
+			if (other.broker != null)
+				return false;
+		} else if (!broker.equals(other.broker))
+			return false;
+		if (carteraClientes == null) {
+			if (other.carteraClientes != null)
+				return false;
+		} else if (!carteraClientes.equals(other.carteraClientes))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
 	}
 	
 	public void borrarCliente() {
@@ -126,34 +166,6 @@ public class Banco {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "Banco [nombre=" + nombre + ", broker=" + broker + ", carteraClientes=" + carteraClientes + "]";
-	}
-
-	public void realizarCopiaDeSeguridad(){
-		try {
-			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("banco.dat") );
-	            escribiendoFichero.writeObject(this.toString());
-	            escribiendoFichero.close();
-		} catch (Exception e) {
-			System.err.println("Se ha producido un error, disculpe las molestias.");
-		}
-	}
-
-	public Banco restaurarCopiaDeSeguridad(){
-		Banco b = this;
-		try {
-			ObjectInputStream leyendoFichero = new ObjectInputStream( 
-            new FileInputStream("objetos.dat") );
-            b = ( Banco )leyendoFichero.readObject();
-            leyendoFichero.close();
-		} catch (Exception e) {
-			System.err.println("Se ha producido un error, disculpe las molestias.");
-		}
-		return b;
-	}
-
 	public Cliente buscarClientePorNombre(String nomCli) {
 		Cliente cli=null;
 		for (Cliente cliente : this.getCarteraClientes()) {
@@ -172,33 +184,7 @@ public class Banco {
 		}
 		return c;
 	}
-
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Banco other = (Banco) obj;
-		if (broker == null) {
-			if (other.broker != null)
-				return false;
-		} else if (!broker.equals(other.broker))
-			return false;
-		if (carteraClientes == null) {
-			if (other.carteraClientes != null)
-				return false;
-		} else if (!carteraClientes.equals(other.carteraClientes))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		return true;
-	}
-	
+																									
 	public void mostrarDatos () {
 		System.out.println("Nombre : " + this.getNombre());
 		this.mostrarClientes();
@@ -241,4 +227,28 @@ public class Banco {
 			return false;
 		}
 	}
+
+	public void realizarCopiaDeSeguridad(){
+		try {
+			 ObjectOutputStream escribiendoFichero = new ObjectOutputStream(new FileOutputStream("banco.dat") );
+	            escribiendoFichero.writeObject(this.toString());
+	            escribiendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+	}
+
+	public Banco restaurarCopiaDeSeguridad(){
+		Banco b = this;
+		try {
+			ObjectInputStream leyendoFichero = new ObjectInputStream( 
+            new FileInputStream("objetos.dat") );
+            b = ( Banco )leyendoFichero.readObject();
+            leyendoFichero.close();
+		} catch (Exception e) {
+			System.err.println("Se ha producido un error, disculpe las molestias.");
+		}
+		return b;
+	}
+
 }
