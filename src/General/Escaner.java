@@ -14,7 +14,7 @@ public class Escaner {
 	
 	public static String leerS() {
 		Scanner reader = new Scanner(System.in);
-		String texto = reader.toString();
+		texto = reader.nextLine ();
 		return texto;
 	}
 	
