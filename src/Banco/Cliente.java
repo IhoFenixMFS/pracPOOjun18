@@ -50,22 +50,19 @@ public class Cliente extends Persona{
 		return "Cliente [saldo=" + saldo + ", carteraDeAcciones=" + carteraDeAcciones + "]";
 	}
 
-	public void mostrarAcciones(ArrayList<PaqueteDeAcciones> carteraDeAcciones) {
-    	if (carteraDeAcciones.isEmpty()) {
-    		System.out.println("El cliente aún no posee cartera de acciones.");
+	public PaqueteDeAcciones buscarAcciones(String nomEmp) {
+    	PaqueteDeAcciones pAcc = null;
+        if (carteraDeAcciones.isEmpty()) {
+    		pAcc = null;
     	} else {
     		byte indice=1;
-    		for (PaqueteDeAcciones acciones: carteraDeAcciones) {
-    			System.out.println(indice + ")");
-    			acciones.mostrarDatos();
+    		for (PaqueteDeAcciones acciones: this.getCarteraDeAcciones()) {
+    			if (acciones.getNombreEmpresa().equals(nomEmp)) {
+                    pAcc = acciones;
+                }
     		}	
-    	
-    		Iterator <PaqueteDeAcciones> acciones = carteraDeAcciones.iterator();
-    		while (acciones.hasNext()) {
-    			((PaqueteDeAcciones) acciones).mostrarDatos();
-    		}
-    	
     	}
+        return pAcc;
     }
     public void mostarDatos(char c) {
 		System.out.println("----------------------------------------------");
@@ -128,8 +125,6 @@ public class Cliente extends Persona{
 	public void clone(Cliente cliente3) {
 		//super.clone();
 		this.saldo = cliente3.saldo;
-		
-		
 	}
 
 	public boolean equals(Object obj) {

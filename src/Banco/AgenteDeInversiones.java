@@ -23,16 +23,6 @@ public class AgenteDeInversiones extends Persona{
 		super(nombre, dni);
 	}
 
-	public static void solicitarComprarAccion(BolsaDeValores bolsa, Banco banco) {
-		System.out.println("Comprar acción. . .");
-		MensajeCompra.compraAcciones(bolsa, banco);
-	}
-	
-	public static void solicitarVenderAccion(BolsaDeValores bolsa, Banco banco) {
-		System.out.println("Vender acción. . .");
-		
-	}
-
 	public static void procesarSolicitudCompra(BolsaDeValores bolsa, Banco banco, String solicitud) {
 		try {
 			String[] corte = solicitud.split("|");
@@ -88,10 +78,14 @@ public class AgenteDeInversiones extends Persona{
 			if (cli.equals(null)) {
 				System.err.println("El cliente no existe.");
 			} else {
-				//Se acctualica la cartera de valores del cliente
-				cli.actualizarValoresCliente(invertido, numAcciones, empresa);
+				if (cli.getSaldo()>=invertido) {
+					//Se acctualica la cartera de valores del cliente
+					cli.actualizarValoresCliente(invertido, numAcciones, empresa);
 				
-				MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+					MensajeRespuestaCompra.mensajeCompraAcciones(id, nomCli, nomEmp, importe, numAcciones, invertido, devolver);
+				} else {
+					System.err.println("El cliente no posee suficiente salgo");
+				}
 			}
 	}
 
@@ -109,13 +103,32 @@ public class AgenteDeInversiones extends Persona{
 		if (cli.equals(null)) {
 			System.err.println("El cliente no existe.");
 		} else {
-			//Se acctualica la cartera de valores del cliente.
-			cli.actualizarValoresCliente(beneficio, acciones, empresa);
+			if (tieneSuficientesAcciones(cli, empresa, acciones)) {
+				//Se acctualica la cartera de valores del cliente.
+				cli.actualizarValoresCliente(beneficio, acciones, empresa);
+				
+				//recibimmos el saldo tras la venta.
+				double saldoFinal = cli.getSaldo();
+		
+				MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
+			} else {
+				System.err.println("Error, el cliente no puede vender acciones que no tiene");
+			}
 			
-			//recibimmos el saldo tras la venta.
-			double saldoFinal = cli.getSaldo();
-	
-			MensajeRespuestaVenta.mensajeVentaAcciones(id, nomCli, nomEmp, beneficio, acciones, saldoFinal);
+		}
+	}
+
+	private static boolean tieneSuficientesAcciones(Cliente c, Empresa e, int a) {
+		PaqueteDeAcciones p = c.buscarAcciones(e.getNombre());
+		if (p==null) {
+			return false;
+		} else {
+			int v = p.getNumTitulos();
+			if (v>=a) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
